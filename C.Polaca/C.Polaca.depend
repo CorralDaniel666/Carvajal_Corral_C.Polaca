@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1514056584 source:c:\users\july\documents\github\carvajal_corral_proyectoestructuras\carvajal_corral_c.polaca\c.polaca\main.cpp
+	<iostream>
+	<conio.h>
+	<string>
+	<locale.h>
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
