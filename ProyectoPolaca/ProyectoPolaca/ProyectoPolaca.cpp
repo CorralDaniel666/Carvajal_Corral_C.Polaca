@@ -8,12 +8,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include "Pila.h"
+#include "Nodo.h"
 
 
 using namespace std;
 
 void menuTeclas();
 void menu();
+void asignar(string);
 
 int main() {
 	menu();
@@ -97,7 +100,9 @@ void menuTeclas() {
 		"4.- Pdf               ",
 		"5.- About             ",
 		"6.- Regresar             " };
+	Pila *pila1 = NULL;
 	int cursor = 0;
+	string cad;
 	char tecla;
 	for (;;) {
 		system("cls");
@@ -137,11 +142,17 @@ void menuTeclas() {
 				switch (cursor) {
 				case 0:
 					system("cls");
+					cout << "Ingrese funcion: " << endl;
+					cin >> cad;
+					printf("\nLa cadena es:\n");
+					asignar(cad);
+					printf("\n");
+					system("pause");
 					menuTeclas();
 					break;
 				case 1:
 					system("cls");
-					;
+					
 					menuTeclas();
 					break;
 				case 2:
@@ -165,5 +176,133 @@ void menuTeclas() {
 		}
 	}
 }
+
+void asignar(string ope)
+{
+	string aux;
+	string aux1;
+	for (int i = 0; i < ope.length(); i++) //obtengo la longitud de la cadena ingresada
+	{
+		stringstream ss;
+		Pila *auxp = pila;
+		int ba = 0;
+		ss << ope[i];
+		ss >> aux;
+		if (aux == "*" || aux == "+" || aux == "/" || aux == "^" || aux == "-" || aux == "(") //Identifico si esa posicion es un signo de interrogacion o un número
+		{
+			if (pila == NULL)
+			{
+				poner(aux);
+			}
+			else
+			{
+				switch (aux[0])
+				{
+					ba = 0;
+				case '+':
+					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+")
+					{
+						do
+						{
+							aux1 = aux1 + pila->getDat();
+							pila = pila->getSgt();
+							if (pila != NULL)
+							{
+								if (pila->getDat() == "c")
+									ba = 1;
+							}
+						} while (pila != NULL&&ba == 0);
+					}
+					if (pila == NULL || aux == "(")
+					{
+						poner(aux);
+
+					}
+					break;
+				case '-':
+				{
+					if (pila != NULL || pila->getDat() != "(")
+					{
+						do
+						{
+							aux1 = aux1 + pila->getDat();
+							pila = pila->getSgt();
+							if (pila != NULL)
+							{
+								if (pila->getDat() == "c")
+									ba = 1;
+							}
+						} while (pila != NULL&&ba == 0);
+					}
+					if (pila == NULL || aux == "(")
+					{
+						poner(aux);
+
+					}
+					break;
+				case '*':
+					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+" || pila->getDat() != "-")
+					{
+						do
+						{
+							aux1 = aux1 + pila->getDat();
+							pila = pila->getSgt();
+							if (pila != NULL)
+							{
+								if (pila->getDat() == "c" || pila->getDat() != "+" || pila->getDat() != "-")
+									ba = 1;
+							}
+						} while (pila != NULL&&ba == 0);
+					}
+					if (pila == NULL || aux == "(" || pila->getDat() != "+" || pila->getDat() != "-")
+					{
+						poner(aux);
+
+					}
+					break;
+				case '/':
+					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+" || pila->getDat() != "-")
+					{
+						do
+						{
+							aux1 = aux1 + pila->getDat();
+							pila = pila->getSgt();
+							if (pila != NULL)
+							{
+								if (pila->getDat() == "c" || pila->getDat() != "+" || pila->getDat() != "-")
+									ba = 1;
+							}
+						} while (pila != NULL&&ba == 0);
+					}
+					if (pila == NULL || aux == "(" || pila->getDat() != "+" || pila->getDat() != "-")
+					{
+						poner(aux);
+
+					}
+					break;
+				}
+				}
+			}
+		}
+		else
+		{
+			aux1 = aux1 + aux;
+		}
+	}
+	if (pila != NULL)
+	{
+		do
+		{
+			aux1 = aux1 + pila->getDat();
+
+			pila = pila->getSgt();
+		} while (pila != NULL);
+	}
+
+	printf("\n\t");
+	cout << aux1;
+}
+
+
 
 

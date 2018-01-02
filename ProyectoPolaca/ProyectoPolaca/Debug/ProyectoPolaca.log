@@ -1,3 +1,4 @@
 ﻿  ProyectoPolaca.cpp
-  ProyectoPolaca.vcxproj -> c:\users\administrador1\documents\visual studio 2017\Projects\ProyectoPolaca\Debug\ProyectoPolaca.exe
-  ProyectoPolaca.vcxproj -> c:\users\administrador1\documents\visual studio 2017\Projects\ProyectoPolaca\Debug\ProyectoPolaca.pdb (Partial PDB)
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(184): warning C4018: '<': no coinciden signed/unsigned
+  ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.exe
+  ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.pdb (Partial PDB)
