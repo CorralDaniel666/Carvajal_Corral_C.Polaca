@@ -1,4 +1,7 @@
 ﻿  ProyectoPolaca.cpp
-c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(184): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(178): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(225): warning C4477: 'printf' : la cadena de formato '%c' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'Elemento'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(267): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(392): warning C4018: '<': no coinciden signed/unsigned
   ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.exe
   ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.pdb (Partial PDB)

@@ -10,13 +10,30 @@
 #include <windows.h>
 #include "Pila.h"
 #include "Nodo.h"
+#include "PilaGenerica.h"
 
+
+struct Elemento {
+	char ope;
+	bool operador;
+};
+
+struct Expresion {
+	Elemento* expr;
+	int n;
+};
 
 using namespace std;
 
 void menuTeclas();
 void menu();
 void asignar(string);
+int prdadFuera(char operando);
+bool valido(char expr[6]);
+bool operando(char c);
+int prdadDentro(char operador);
+int prdadFuera(char operando);
+void postfija(char cadena[],const int num);
 
 int main() {
 	menu();
@@ -92,18 +109,25 @@ void menu() {
 
 void menuTeclas() {
 	system("color f0");
-	//system("cls");
 	string menu1[] = {
 		"1.- Insertar Expresion",
 		"2.- Ver datos (QR)    ",
 		"3.- Calcular          ",
 		"4.- Pdf               ",
 		"5.- About             ",
-		"6.- Regresar             " };
+		"6.- Regresar          " };
 	Pila *pila1 = NULL;
 	int cursor = 0;
 	string cad;
 	char tecla;
+
+	PilaGenerica pila;
+	Expresion post;
+	char cadena[81];
+	
+	bool desapila;
+	int n = -1, i = 0,num;
+	
 	for (;;) {
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
@@ -142,12 +166,71 @@ void menuTeclas() {
 				switch (cursor) {
 				case 0:
 					system("cls");
+					char ch, opeCima;
 					cout << "Ingrese funcion: " << endl;
+					cin.getline(cadena, 80);
+					num = strlen(cadena);
+					//postfija(cadena,num);
+					Elemento elemento[6];
+
+					if (!valido(cadena))
+						printf("Caracter no valido en la expresion");
+					for (i = 0; i<strlen(cadena); i++) {
+						ch = toupper(cadena[i]);
+						if (operando(ch)) {
+							n++;
+							elemento[n].ope = ch;
+							elemento[n].operador = false;
+							printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope, elemento[n].operador);
+						}
+						else if (ch != ')') {
+							printf("aqui llego 1");
+							desapila = true;
+							while (desapila) {
+								opeCima = ' ';
+								if (!pila.pilaVacia())
+									opeCima = pila.cimaPila();
+								if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(ch))) {
+									pila.push(ch);
+									desapila = false;
+									printf("aqui llego 2");
+								}
+								else if (prdadFuera(ch) <= prdadDentro(opeCima)) {
+									elemento[++n].ope = pila.pop();
+									elemento[n].operador = true;
+								}
+							}
+						}
+						else {
+							opeCima = pila.pop();
+							do {
+								elemento[++n].ope = opeCima;
+								elemento[n].operador = true;
+								opeCima = pila.pop();
+							} while (opeCima != '(');
+						}
+					}
+
+					while (!pila.pilaVacia()) {
+						elemento[++n].ope = pila.pop();
+						elemento[n].operador = true;
+					}
+					//Expresion post;
+					post.expr = elemento;
+					post.n = n;
+
+
+					for (int i = 0; i <= post.n; i++)
+					{
+						printf("%c", post.expr[i]);
+					}
+					system("pause");
+					/*cout << "Ingrese funcion: " << endl;
 					cin >> cad;
 					printf("\nLa cadena es:\n");
 					asignar(cad);
 					printf("\n");
-					system("pause");
+					system("pause");*/
 					menuTeclas();
 					break;
 				case 1:
@@ -303,6 +386,69 @@ void asignar(string ope)
 	cout << aux1;
 }
 
+
+bool valido(char expr[20]) {
+	bool sw = true;
+	for (int i = 0; (i<strlen(expr) && sw); i++) {
+		char c;
+		c = expr[i];
+		sw = sw && (
+			(c >= 'A' && c <= 'Z') ||
+			(c >= 'a' && c <= 'z') ||
+			(c >= '0' && c <= '9') ||
+			(c == '^') || (c == '/') || (c == '*') ||
+			(c == '+') || (c == '-') || (c == '\n') ||
+			(c == '(') || (c == ')')
+			);
+	}
+	return sw;
+}
+
+bool operando(char c) { //determina si el caracter es un operando
+	return(c >= '0'&& c <= '9');
+}
+
+int prdadDentro(char operador) { //prioridad del operador en la expresion
+	int pdp;
+	switch (operador) {
+	case '^':
+		pdp = 3;
+		break;
+	case '*': case '/':
+		pdp = 2;
+		break;
+	case '+': case '-':
+		pdp = 1;
+		break;
+	case '(':
+		pdp = 0;
+
+	}
+	return pdp;
+}
+
+int prdadFuera(char operando) { //prioridad del operador en la expresion infija
+	int pfp;
+	switch (operando)
+	{
+	case '^':
+		pfp = 4;
+		break;
+	case '*': case '/':
+		pfp = 2;
+		break;
+	case '+': case '-':
+		pfp = 1;
+		break;
+	case '(':
+		pfp = 5;
+	}
+	return pfp;
+}
+
+void postfija(char cadena[20],const int num) {
+	
+}
 
 
 
