@@ -4,12 +4,14 @@
 #include <string.h>
 #include<stdio.h>
 
+using namespace std;
+
 class NodoGenerico {
 public:
 	NodoGenerico* siguiente;
-	char elemento;
-	float numero;
-	NodoGenerico(char x) {
+	string elemento;
+	double numero;
+	NodoGenerico(string x) {
 		elemento = x;
 		siguiente = NULL;
 	}

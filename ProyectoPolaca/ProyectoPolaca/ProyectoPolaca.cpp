@@ -14,7 +14,7 @@
 
 
 struct Elemento {
-	char ope;
+	string ope;
 	bool operador;
 };
 
@@ -28,12 +28,14 @@ using namespace std;
 void menuTeclas();
 void menu();
 void asignar(string);
-int prdadFuera(char operando);
-bool valido(char expr[6]);
-bool operando(char c);
-int prdadDentro(char operador);
-int prdadFuera(char operando);
-void postfija(char cadena[],const int num);
+bool valido(string);
+bool operando(string c);
+int prdadDentro(string operador);
+int prdadFuera(string operando);
+string postfija(string, int);
+string separarDato(string , char *dato, int &pos);
+void guardar(string , char *archivo);
+
 
 int main() {
 	menu();
@@ -120,10 +122,10 @@ void menuTeclas() {
 	int cursor = 0;
 	string cad;
 	char tecla;
-
+	char nombreArchivo[11] = "polaca.txt";
 	PilaGenerica pila;
 	Expresion post;
-	char cadena[81];
+	string cadena, cverdad;
 	
 	bool desapila;
 	int n = -1, i = 0,num;
@@ -166,82 +168,14 @@ void menuTeclas() {
 				switch (cursor) {
 				case 0:
 					system("cls");
-					char ch, opeCima;
+					
 					cout << "Ingrese funcion: " << endl;
-					cin.getline(cadena, 80);
-					num = strlen(cadena);
-					//postfija(cadena,num);
-					Elemento elemento[6];
-
-					if (!valido(cadena))
-						printf("Caracter no valido en la expresion");
-					for (i = 0; i<strlen(cadena); i++) {
-						ch = toupper(cadena[i]);
-						if (operando(ch)) {
-							n++;
-							elemento[n].ope = ch;
-							elemento[n].operador = false;
-							printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope, elemento[n].operador);
-						}
-						else if (ch != ')') {
-							
-							//printf("aqui llego 1 ");
-							desapila = true;
-							while (desapila) {
-								opeCima = ' ';
-								if (!pila.pilaVacia()) {
-									opeCima = pila.cimaPila();
-									//printf("\naqui llego 2 en if cima pila = %c",opeCima);
-									/*if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(opeCima))) {
-										pila.push(ch);
-										desapila = false;
-										printf("\naqui llego 3");
-									}*/
-									
-								}
-								if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(opeCima))) {
-									pila.push(ch);
-									desapila = false;
-									//printf("\naqui llego 4 ch = %c",ch);
-								}
-								else if (prdadFuera(ch) <= prdadDentro(opeCima)) {
-									elemento[++n].ope = pila.pop();
-									elemento[n].operador = true;
-									//printf("\naqui llego 5");
-				
-								}
-							}
-						}
-						else {
-							opeCima = pila.pop();
-							do {
-								elemento[++n].ope = opeCima;
-								elemento[n].operador = true;
-								opeCima = pila.pop();
-							} while (opeCima != '(');
-						}
-					}
-
-					while (!pila.pilaVacia()) {
-						elemento[++n].ope = pila.pop();
-						elemento[n].operador = true;
-					}
-					//Expresion post;
-					post.expr = elemento;
-					post.n = n;
-
-
-					for (int i = 0; i <= post.n; i++)
-					{
-						printf("%c", post.expr[i]);
-					}
+					cin >> cadena;
+					num = cadena.size();
+					cverdad=postfija(cadena,num);
+					printf("\nCADENA POSTFIJO = %s", cverdad.c_str());
+					guardar(cverdad.c_str(), nombreArchivo);
 					system("pause");
-					/*cout << "Ingrese funcion: " << endl;
-					cin >> cad;
-					printf("\nLa cadena es:\n");
-					asignar(cad);
-					printf("\n");
-					system("pause");*/
 					menuTeclas();
 					break;
 				case 1:
@@ -457,8 +391,184 @@ int prdadFuera(char operando) { //prioridad del operador en la expresion infija
 	return pfp;
 }
 
-void postfija(char cadena[20],const int num) {
-	
+string postfija(string expresion, int num) {
+	PilaGenerica pila;
+	Expresion post;
+	Elemento elemento[25];
+	string tokens[25];
+	string ch, opeCima;
+	char dato[25] = "";
+	int cont = 0, n = -1, i = 0;
+	bool desapila;
+	//Valido que la expresion sea valida
+	if (!valido(expresion))
+		printf("Caracter no valido en la expresion");
+
+	for (int j = 0; j < num; j++) {
+		//separo la expresion
+		tokens[j] = separarDato(expresion, dato, j);
+		ch = tokens[j];
+		//cout << "\ntoken = " << ch.c_str();
+		//printf("\n");
+		if (operando(ch.c_str())) {
+			n++;
+			elemento[n].ope = ch.c_str();
+			elemento[n].operador = false;
+			//printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
+		}
+		else if (ch.c_str() != ")") {
+			desapila = true;
+			while (desapila) {
+				opeCima = " ";
+				if (!pila.pilaVacia()) {
+					opeCima = pila.cimaPila();
+				}
+				if (pila.pilaVacia() || (prdadFuera(ch.c_str()) > prdadDentro(opeCima))) {
+					pila.push(ch.c_str());
+					desapila = false;
+					//printf("\naqui llego 4 ch = %c",ch);
+				}
+				else if (prdadFuera(ch.c_str()) <= prdadDentro(opeCima)) {
+					elemento[++n].ope = pila.pop();
+					elemento[n].operador = true;
+					//printf("\naqui llego 5");
+				}
+			}
+		}
+
+		else {
+			opeCima = pila.pop();
+			do {
+				elemento[++n].ope = opeCima;
+				elemento[n].operador = true;
+				opeCima = pila.pop();
+			} while (opeCima != "(");
+		}
+
+	}
+
+	while (!pila.pilaVacia()) {
+		elemento[++n].ope = pila.pop();
+		elemento[n].operador = true;
+	}
+	//Expresion post;
+	post.expr = elemento;
+	post.n = n;
+	string cverdad;
+	printf("\ntotal elementos %d\n", n);
+	for (int i = 0; i <= post.n; i++)
+	{
+			/*printf("%s", post.expr[i].ope.c_str());*/
+			cverdad.append(post.expr[i].ope.c_str());
+	}
+
+	return cverdad;
+}
+
+string separarDato(string expresion, char *dato, int &pos)
+{
+	string aux;
+	char p, p1[2];
+	p = expresion[pos];
+	//printf("\np : %c\n", p);
+	if (p == '+' || p == '-' || p == '*' || p == '/' || p == '^' || p == '(' || p == ')')
+	{
+		p1[0] = p;
+		p1[1] = '\0';
+		strcpy(dato, p1);
+		//pos++;
+		aux = dato;
+		return aux;
+	}
+	else
+	{
+		p1[0] = '\0';
+		strcpy(dato, p1);
+		do
+		{
+			p = expresion[pos];
+			if (p == '\0' || p == '+' || p == '-' || p == '*' || p == '/' || p == '^' || p == '(' || p == ')')break;
+			p1[0] = p;
+			p1[1] = '\0';
+			strcat(dato, p1);
+			//printf(" p es: %c \n", p);
+			pos++;
+		} while (true);
+		pos--;
+		if (strcmp(dato, "sen") == 0) strcpy(dato, "sen");
+		if (strcmp(dato, "cos") == 0) strcpy(dato, "cos");
+		if (strcmp(dato, "tan") == 0) strcpy(dato, "tan");
+	}
+
+	//cout << "dato: " << dato;
+	aux = dato;
+	return aux;
+}
+
+bool valido(string expr) {
+	bool sw = true;
+	for (int i = 0; (i<expr.size() && sw); i++) {
+		string c;
+		c = expr[i];
+		sw = sw && (
+			(c >= "A" && c <= "Z") ||
+			(c >= "a" && c <= "z") ||
+			(c >= "0" && c <= "9") ||
+			(c == "^") || (c == "/") || (c == "*") ||
+			(c == "+") || (c == "-") || (c == "\n") ||
+			(c == "(") || (c == ")")
+			);
+	}
+	return sw;
+}
+
+bool operando(string c) { //determina si el caracter es un operando
+	return(c >= "0" && c <= "9" || c == "sen" || c == "cos");
+}
+
+int prdadDentro(string operador) { //prioridad del operador en la expresion
+	int pdp = 0;
+
+	if (operador == "^")
+		pdp = 3;
+	else if (operador == "*" || operador == "/")
+		pdp = 2;
+	else if (operador == "+" || operador == "-")
+		pdp = 1;
+	else if (operador == "(")
+		pdp = 0;
+	return pdp;
+}
+
+int prdadFuera(string operando) { //prioridad del operador en la expresion infija
+	int pfp = 0;
+	if (operando == "^")
+		pfp = 4;
+	else if (operando == "*" || operando == "/")
+		pfp = 2;
+	else if (operando == "+" || operando == "-")
+		pfp = 1;
+	else if (operando == "(")
+		pfp = 5;
+	return pfp;
+}
+
+void guardar(string expresion, char *archivo) {
+	FILE *ptr;
+	string nombre;
+
+	ptr = fopen(archivo, "a"); //REALIZO LA APERTURA DEL ARCHIVO
+	if (ptr == NULL)
+	{
+		printf("ERROR.\n");
+	}
+	else
+	{
+		nombre = expresion.c_str();
+		//fputs(nombre,ptr);
+		fprintf(ptr, "Postfijo: %s  ", nombre.c_str());
+		fclose(ptr);
+	}
 }
 
 

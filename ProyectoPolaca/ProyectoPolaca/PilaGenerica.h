@@ -1,14 +1,17 @@
 #pragma once
 #include "NodoGenerico.h"
 
+using namespace std;
+
 class PilaGenerica {
 public:
 	PilaGenerica() {
 		cima = NULL;
 	}
-	void push(char elemento);
-	char pop();
-	char cimaPila();
+	//void push(string elemento);
+	void push(string elemento);
+	string pop();
+	string cimaPila();
 	bool pilaVacia();
 	void limpiarPila();
 };
@@ -17,22 +20,22 @@ bool PilaGenerica::pilaVacia() {
 	return cima == NULL;
 }
 
-void PilaGenerica::push(char x) {
+void PilaGenerica::push(string x) {
 	NodoGenerico* nuevo;
 	nuevo = new NodoGenerico(x);
 	nuevo->siguiente = cima;
 	cima = nuevo;
 }
 
-char PilaGenerica::pop() {
+string PilaGenerica::pop() {
 	if (pilaVacia())
 		throw "Pila vacía...";
-	int aux = cima->elemento;
+	string aux = cima->elemento;
 	cima = cima->siguiente;
 	return aux;
 }
 
-char PilaGenerica::cimaPila() {
+string PilaGenerica::cimaPila() {
 	if (pilaVacia())
 		throw "Pila vacia...";
 	return cima->elemento;

@@ -1,7 +1,22 @@
 ﻿  ProyectoPolaca.cpp
-c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(178): warning C4018: '<': no coinciden signed/unsigned
-c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(236): warning C4477: 'printf' : la cadena de formato '%c' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'Elemento'
-c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(278): warning C4018: '<': no coinciden signed/unsigned
-c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(403): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(130): warning C4101: 'desapila': variable local sin referencia
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(127): warning C4101: 'post': variable local sin referencia
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(212): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(337): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(478): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note: vea la declaración de 'strcpy'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(486): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note: vea la declaración de 'strcpy'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(493): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(93): note: vea la declaración de 'strcat'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(498): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note: vea la declaración de 'strcpy'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(499): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note: vea la declaración de 'strcpy'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(500): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\string.h(136): note: vea la declaración de 'strcpy'
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(510): warning C4018: '<': no coinciden signed/unsigned
+c:\users\administrador1\desktop\proyecto polaca\carvajal_corral_c.polaca\proyectopolaca\proyectopolaca\proyectopolaca.cpp(560): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(207): note: vea la declaración de 'fopen'
   ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.exe
   ProyectoPolaca.vcxproj -> C:\Users\Administrador1\Desktop\Proyecto Polaca\Carvajal_Corral_C.Polaca\ProyectoPolaca\Debug\ProyectoPolaca.pdb (Partial PDB)
