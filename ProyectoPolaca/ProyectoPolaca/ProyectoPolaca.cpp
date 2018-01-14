@@ -184,20 +184,31 @@ void menuTeclas() {
 							printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope, elemento[n].operador);
 						}
 						else if (ch != ')') {
-							printf("aqui llego 1");
+							
+							//printf("aqui llego 1 ");
 							desapila = true;
 							while (desapila) {
 								opeCima = ' ';
-								if (!pila.pilaVacia())
+								if (!pila.pilaVacia()) {
 									opeCima = pila.cimaPila();
-								if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(ch))) {
+									//printf("\naqui llego 2 en if cima pila = %c",opeCima);
+									/*if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(opeCima))) {
+										pila.push(ch);
+										desapila = false;
+										printf("\naqui llego 3");
+									}*/
+									
+								}
+								if (pila.pilaVacia() || (prdadFuera(ch) > prdadDentro(opeCima))) {
 									pila.push(ch);
 									desapila = false;
-									printf("aqui llego 2");
+									//printf("\naqui llego 4 ch = %c",ch);
 								}
 								else if (prdadFuera(ch) <= prdadDentro(opeCima)) {
 									elemento[++n].ope = pila.pop();
 									elemento[n].operador = true;
+									//printf("\naqui llego 5");
+				
 								}
 							}
 						}
@@ -409,7 +420,7 @@ bool operando(char c) { //determina si el caracter es un operando
 }
 
 int prdadDentro(char operador) { //prioridad del operador en la expresion
-	int pdp;
+	int pdp=0;
 	switch (operador) {
 	case '^':
 		pdp = 3;
@@ -428,7 +439,7 @@ int prdadDentro(char operador) { //prioridad del operador en la expresion
 }
 
 int prdadFuera(char operando) { //prioridad del operador en la expresion infija
-	int pfp;
+	int pfp=0;
 	switch (operando)
 	{
 	case '^':
