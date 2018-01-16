@@ -1,1 +1,1 @@
-Postfijo: 23+54*-  Postfijo: 492^+3+  
+Postfijo: 23+54*-  Postfijo: 492^+3+  Postfijo: 15+42*-  Postfijo: 342*+92-+  

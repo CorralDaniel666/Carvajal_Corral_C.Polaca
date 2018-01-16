@@ -11,7 +11,7 @@
 #include "Pila.h"
 #include "Nodo.h"
 #include "PilaGenerica.h"
-
+#include "PilaGenericaD.h"
 
 struct Elemento {
 	string ope;
@@ -35,6 +35,7 @@ int prdadFuera(string operando);
 string postfija(string, int);
 string separarDato(string , char *dato, int &pos);
 void guardar(string , char *archivo);
+double Evalua(Expresion postfija, double v[]);
 
 
 int main() {
@@ -416,7 +417,7 @@ string postfija(string expresion, int num) {
 			elemento[n].operador = false;
 			//printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
 		}
-		else if (ch.c_str() != ")") {
+		else if (ch.compare(")")) {
 			desapila = true;
 			while (desapila) {
 				opeCima = " ";
@@ -436,13 +437,17 @@ string postfija(string expresion, int num) {
 			}
 		}
 
-		else {
+		else { //si es )
 			opeCima = pila.pop();
-			do {
-				elemento[++n].ope = opeCima;
-				elemento[n].operador = true;
-				opeCima = pila.pop();
-			} while (opeCima != "(");
+			if (opeCima.compare("(")) {
+				//printf("\n\nOPECIMA = %s", opeCima.c_str());
+				do {
+					elemento[++n].ope = opeCima;
+					elemento[n].operador = true;
+					opeCima = pila.pop();
+					//printf("\n\nOPECIMA = %s",opeCima.c_str());
+				} while (opeCima != "(");
+			}
 		}
 
 	}
@@ -455,14 +460,62 @@ string postfija(string expresion, int num) {
 	post.expr = elemento;
 	post.n = n;
 	string cverdad;
-	printf("\ntotal elementos %d\n", n);
+	double valor, v[26];
+	//printf("\ntotal elementos %d\n", n);
+	cout << "\nExpresion:\n";
 	for (int i = 0; i <= post.n; i++)
 	{
-			/*printf("%s", post.expr[i].ope.c_str());*/
+			printf("%s", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
 	}
+	valor = Evalua(post, v);
+	cout << "\nValor de la expresion =" << valor;
 
 	return cverdad;
+}
+
+double Evalua(Expresion postfija, double v[]) {
+	PilaGenericaD pilaGen;
+	double valor, a, b;
+	for (int i = 0; i <= postfija.n; i++) {
+		string op;
+		if (postfija.expr[i].operador) {
+			op = postfija.expr[i].ope;
+			b = pilaGen.pop();
+			a = pilaGen.pop();
+			if (!op.compare("^")) {
+				valor = pow(a, b);
+			}
+			else if (!op.compare("*")) {
+				valor = a*b;
+			}
+			else if (!op.compare("/")) {
+				if (b != 0.0)
+					valor = a / b;
+				else
+					printf("\nNo se puede realizar division para cero\n");
+			}
+			else if (!op.compare("+")) {
+				valor = a + b;
+			}
+			else if (!op.compare("-")) {
+				valor = a - b;
+			}
+			else if (!op.compare("sen")) {
+				valor = sin(a);
+			}
+			pilaGen.push(valor);
+		}
+		else {
+			int indice;
+			double aa;
+			op = postfija.expr[i].ope;
+			aa = atof(op.c_str());
+			pilaGen.push(aa);
+		}
+	}
+
+	return pilaGen.pop();
 }
 
 string separarDato(string expresion, char *dato, int &pos)
