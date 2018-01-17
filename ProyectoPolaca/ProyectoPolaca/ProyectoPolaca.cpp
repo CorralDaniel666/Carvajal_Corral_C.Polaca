@@ -41,7 +41,7 @@ double Evalua(Expresion postfija, double v[]);
 void  generarQr(char *);
 static void generarQrBasico(char dato1[]);
 static void printQr(const uint8_t qrcode[]);
-
+string Prefija(string expresion, int num);
 
 int main() {
 	menu();
@@ -185,6 +185,7 @@ void menuTeclas() {
 						cadena1[i] = cverdad[i]     ;
 					}*/
 					//printf("\n\n%c", cadena1[0]);
+					//Prefija(cadena, num);
 					printf("\nPulse cualquier tecla para generar codigo QR...");
 					getch();
 					generarQr(cadena1);
@@ -476,16 +477,22 @@ string postfija(string expresion, int num) {
 	double valor, v[26];
 	//printf("\ntotal elementos %d\n", n);
 	cout << "\n\tExpresion:\t";
-	for (int i = 0; i <= post.n; i++)
+	/*for (int i = 0; i <= post.n; i++)
 	{
 			printf("%s", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
-	}
+	}*/
 	
 	valor = Evalua(post, v);
 	cout << "\n Valor de la expresion =  " << valor;
-
+	
 	return cverdad;
+}
+
+string Prefija(string expresion,int num) {
+	
+
+	return " ";
 }
 
 double Evalua(Expresion postfija, double v[]) {
@@ -534,9 +541,9 @@ double Evalua(Expresion postfija, double v[]) {
 			else if(!op.compare("+") || !op.compare("-") || !op.compare("*") || !op.compare("/") || !op.compare("^")) {
 				b = pilaGen.pop();
 				a = pilaGen.pop();
-				printf(" \nImprimen en else a: %f\n", a);
+				/*printf(" \nImprimen en else a: %f\n", a);
 				printf(" \nImprime en else b:%f\n", b);
-				printf("operador: %s\n", op.c_str());
+				printf("operador: %s\n", op.c_str());*/
 				if (!op.compare("^")) {
 					valor = pow(a, b);
 				}
