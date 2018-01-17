@@ -491,35 +491,52 @@ string postfija(string expresion, int num) {
 double Evalua(Expresion postfija, double v[]) {
 	PilaGenericaD pilaGen;
 	double valor, a, b;
+	int cont = 0;
 	for (int i = 0; i <= postfija.n ; i++) {
 		string op;
 		if (postfija.expr[i].operador) {
 			op = postfija.expr[i].ope;
 			/*printf("operador: %s\n", op.c_str());*/
 			if (!op.compare("sen") || !op.compare("cos") || !op.compare("tan")) {
-				b = pilaGen.pop();
-				a = pilaGen.pop();
-				/*printf(" \na: %f\n", a);
-				printf(" \nb:%f\n", b);*/
-				if (!op.compare("sen")) {
-					valor = sin(b);
+				if (cont != 1) {
+					b = pilaGen.pop();
+					a = pilaGen.pop();
+					/*printf(" \na: %f\n", a);
+					printf(" \nb:%f\n", b);*/
+					if (!op.compare("sen")) {
+						valor = sin(b);
+					}
+					else if (!op.compare("cos")) {
+						valor = cos(b);
+					}
+					else if (!op.compare("tan")) {
+						valor = tan(b);
+					}
+					pilaGen.push(a);
+					pilaGen.push(valor);
 				}
-				else if (!op.compare("cos")) {
-					valor = cos(b);
+				else {
+					a = pilaGen.pop();
+					if (!op.compare("sen")) {
+						valor = sin(a);
+					}
+					else if (!op.compare("cos")) {
+						valor = cos(a);
+					}
+					else if (!op.compare("tan")) {
+						valor = tan(a);
+					}
+					pilaGen.push(valor);
 				}
-				else if (!op.compare("tan")) {
-					valor = tan(b);
-				}
-				pilaGen.push(a);
-				pilaGen.push(valor);
+				
 				
 			}
 			else if(!op.compare("+") || !op.compare("-") || !op.compare("*") || !op.compare("/") || !op.compare("^")) {
 				b = pilaGen.pop();
 				a = pilaGen.pop();
-				/*printf(" \nImprimen en else a: %f\n", a);
+				printf(" \nImprimen en else a: %f\n", a);
 				printf(" \nImprime en else b:%f\n", b);
-				printf("operador: %s\n", op.c_str());*/
+				printf("operador: %s\n", op.c_str());
 				if (!op.compare("^")) {
 					valor = pow(a, b);
 				}
@@ -553,6 +570,7 @@ double Evalua(Expresion postfija, double v[]) {
 			op = postfija.expr[i].ope;
 			aa = atof(op.c_str());
 			pilaGen.push(aa);
+			cont++;
 		}
 	}
 
