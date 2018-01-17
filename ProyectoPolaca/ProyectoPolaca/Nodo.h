@@ -9,9 +9,6 @@
 using namespace std;
 
 
-
-
-
 Pila *pila = NULL;
 void poner(string dat)
 {

@@ -12,6 +12,8 @@
 #include "Nodo.h"
 #include "PilaGenerica.h"
 #include "PilaGenericaD.h"
+#include "qrcodegen.h"
+
 
 struct Elemento {
 	string ope;
@@ -36,6 +38,9 @@ string postfija(string, int);
 string separarDato(string , char *dato, int &pos);
 void guardar(string , char *archivo);
 double Evalua(Expresion postfija, double v[]);
+void  generarQr(char *);
+static void generarQrBasico(char dato1[]);
+static void printQr(const uint8_t qrcode[]);
 
 
 int main() {
@@ -127,7 +132,7 @@ void menuTeclas() {
 	PilaGenerica pila;
 	Expresion post;
 	string cadena, cverdad;
-	
+	char cadena1[30];
 	bool desapila;
 	int n = -1, i = 0,num;
 	
@@ -174,9 +179,16 @@ void menuTeclas() {
 					cin >> cadena;
 					num = cadena.size();
 					cverdad=postfija(cadena,num);
-					printf("\nCADENA POSTFIJO = %s", cverdad.c_str());
+					//printf("\nCADENA POSTFIJO = %s", cverdad.c_str());
 					guardar(cverdad.c_str(), nombreArchivo);
-					system("pause");
+					/*for (int i = 0; i < cverdad.size(); i++) {
+						cadena1[i] = cverdad[i]     ;
+					}*/
+					//printf("\n\n%c", cadena1[0]);
+					printf("\nPulse cualquier tecla para generar codigo QR...");
+					getch();
+					generarQr(cadena1);
+					pila.limpiarPila();
 					menuTeclas();
 					break;
 				case 1:
@@ -415,7 +427,7 @@ string postfija(string expresion, int num) {
 			n++;
 			elemento[n].ope = ch.c_str();
 			elemento[n].operador = false;
-			//printf("\nELEMENTO = %c Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
+			//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
 		}
 		else if (ch.compare(")")) {
 			desapila = true;
@@ -424,10 +436,11 @@ string postfija(string expresion, int num) {
 				if (!pila.pilaVacia()) {
 					opeCima = pila.cimaPila();
 				}
-				if (pila.pilaVacia() || (prdadFuera(ch.c_str()) > prdadDentro(opeCima))) {
+				if (pila.pilaVacia() || (prdadFuera(ch.c_str()) > prdadDentro(opeCima))) { //si la pila esta vacia o si la prioridad del caracter de fuera > prioridad que el que esta dentro
+					//printf("\naqui llego 4 ch = %s", ch.c_str());
 					pila.push(ch.c_str());
 					desapila = false;
-					//printf("\naqui llego 4 ch = %c",ch);
+					
 				}
 				else if (prdadFuera(ch.c_str()) <= prdadDentro(opeCima)) {
 					elemento[++n].ope = pila.pop();
@@ -462,14 +475,15 @@ string postfija(string expresion, int num) {
 	string cverdad;
 	double valor, v[26];
 	//printf("\ntotal elementos %d\n", n);
-	cout << "\nExpresion:\n";
+	cout << "\n\tExpresion:\t";
 	for (int i = 0; i <= post.n; i++)
 	{
 			printf("%s", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
 	}
+	
 	valor = Evalua(post, v);
-	cout << "\nValor de la expresion =" << valor;
+	cout << "\n Valor de la expresion =  " << valor;
 
 	return cverdad;
 }
@@ -477,34 +491,61 @@ string postfija(string expresion, int num) {
 double Evalua(Expresion postfija, double v[]) {
 	PilaGenericaD pilaGen;
 	double valor, a, b;
-	for (int i = 0; i <= postfija.n; i++) {
+	for (int i = 0; i <= postfija.n ; i++) {
 		string op;
 		if (postfija.expr[i].operador) {
 			op = postfija.expr[i].ope;
-			b = pilaGen.pop();
-			a = pilaGen.pop();
-			if (!op.compare("^")) {
-				valor = pow(a, b);
+			/*printf("operador: %s\n", op.c_str());*/
+			if (!op.compare("sen") || !op.compare("cos") || !op.compare("tan")) {
+				b = pilaGen.pop();
+				a = pilaGen.pop();
+				/*printf(" \na: %f\n", a);
+				printf(" \nb:%f\n", b);*/
+				if (!op.compare("sen")) {
+					valor = sin(b);
+				}
+				else if (!op.compare("cos")) {
+					valor = cos(b);
+				}
+				else if (!op.compare("tan")) {
+					valor = tan(b);
+				}
+				pilaGen.push(a);
+				pilaGen.push(valor);
+				
 			}
-			else if (!op.compare("*")) {
-				valor = a*b;
+			else if(!op.compare("+") || !op.compare("-") || !op.compare("*") || !op.compare("/") || !op.compare("^")) {
+				b = pilaGen.pop();
+				a = pilaGen.pop();
+				/*printf(" \nImprimen en else a: %f\n", a);
+				printf(" \nImprime en else b:%f\n", b);
+				printf("operador: %s\n", op.c_str());*/
+				if (!op.compare("^")) {
+					valor = pow(a, b);
+				}
+				else if (!op.compare("*")) {
+					valor = a*b;
+				}
+				else if (!op.compare("/")) {
+					if (b != 0.0)
+						valor = a / b;
+					else {
+						printf("\nNo se puede realizar division para cero\nIntente ingresando otra expresion!");
+						getch();
+						menuTeclas();
+						break;
+					}
+						
+				}
+				else if (!op.compare("+")) {
+					valor = a + b;
+				}
+				else if (!op.compare("-")) {
+					valor = a - b;
+				}
+				pilaGen.push(valor);
 			}
-			else if (!op.compare("/")) {
-				if (b != 0.0)
-					valor = a / b;
-				else
-					printf("\nNo se puede realizar division para cero\n");
-			}
-			else if (!op.compare("+")) {
-				valor = a + b;
-			}
-			else if (!op.compare("-")) {
-				valor = a - b;
-			}
-			else if (!op.compare("sen")) {
-				valor = sin(a);
-			}
-			pilaGen.push(valor);
+			
 		}
 		else {
 			int indice;
@@ -548,9 +589,9 @@ string separarDato(string expresion, char *dato, int &pos)
 			pos++;
 		} while (true);
 		pos--;
-		if (strcmp(dato, "sen") == 0) strcpy(dato, "sen");
-		if (strcmp(dato, "cos") == 0) strcpy(dato, "cos");
-		if (strcmp(dato, "tan") == 0) strcpy(dato, "tan");
+		//if (strcmp(dato, "sen") == 0) strcpy(dato, "sen");
+		//if (strcmp(dato, "cos") == 0) strcpy(dato, "cos");
+		//if (strcmp(dato, "tan") == 0) strcpy(dato, "tan");
 	}
 
 	//cout << "dato: " << dato;
@@ -576,13 +617,13 @@ bool valido(string expr) {
 }
 
 bool operando(string c) { //determina si el caracter es un operando
-	return(c >= "0" && c <= "9" || c == "sen" || c == "cos");
+	return(c >= "0" && c <= "9");
 }
 
-int prdadDentro(string operador) { //prioridad del operador en la expresion
+int prdadDentro(string operador) { //prioridad del operador en la expresion (dentro de la pila)
 	int pdp = 0;
 
-	if (operador == "^")
+	if (operador == "^" || operador == "sen" || operador =="cos" || operador =="tan")
 		pdp = 3;
 	else if (operador == "*" || operador == "/")
 		pdp = 2;
@@ -595,7 +636,7 @@ int prdadDentro(string operador) { //prioridad del operador en la expresion
 
 int prdadFuera(string operando) { //prioridad del operador en la expresion infija
 	int pfp = 0;
-	if (operando == "^")
+	if (operando == "^" || operando == "sen" || operando=="cos"|| operando=="tan")
 		pfp = 4;
 	else if (operando == "*" || operando == "/")
 		pfp = 2;
@@ -625,4 +666,33 @@ void guardar(string expresion, char *archivo) {
 }
 
 
+void generarQrBasico(char dato1[]) {
+	char *dato = dato1;  // User-supplied text
+	enum qrcodegen_Ecc errCorLvl = qrcodegen_Ecc_LOW;  // Error correction level
 
+													   // Make and print the QR Code symbol
+	uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
+	uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
+	bool ok = qrcodegen_encodeText(dato, tempBuffer, qrcode, errCorLvl,
+		qrcodegen_VERSION_MIN, qrcodegen_VERSION_MAX, qrcodegen_Mask_AUTO, true);
+	if (ok)
+		printQr(qrcode);
+}
+
+static void printQr(const uint8_t qrcode[]) {
+	int size = qrcodegen_getSize(qrcode);
+	int border = 4;
+	for (int y = -border; y < size + border; y++) {
+		for (int x = -border; x < size + border; x++) {
+			fputs((qrcodegen_getModule(qrcode, x, y) ? "\333\333" : "  "), stdout);
+		}
+		fputs("\n", stdout);
+	}
+}
+
+static void generarQr(char *mensaje)
+{
+	printf("GENERADOR DE QR\n");
+	generarQrBasico(mensaje);
+	system("pause");
+}
