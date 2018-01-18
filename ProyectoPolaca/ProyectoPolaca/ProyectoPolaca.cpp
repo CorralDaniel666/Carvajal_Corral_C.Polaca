@@ -28,6 +28,7 @@ struct Expresion {
 using namespace std;
 
 void menuTeclas();
+void menuTeclasPre();
 void menu();
 void asignar(string);
 bool valido(string);
@@ -42,6 +43,8 @@ void  generarQr(char *);
 static void generarQrBasico(char dato1[]);
 static void printQr(const uint8_t qrcode[]);
 string Prefija(string expresion, int num);
+int prdadDentroPre(string operador);
+int prdadFueraPre(string operando);
 
 int main() {
 	menu();
@@ -97,7 +100,7 @@ void menu() {
 				case 0:
 					system("cls");
 					printf("\n*******************Conversion Prefijo****************\n");
-					menuTeclas();
+					menuTeclasPre();
 					break;
 				case 1:
 					system("cls");
@@ -174,18 +177,13 @@ void menuTeclas() {
 				switch (cursor) {
 				case 0:
 					system("cls");
-					
+					printf("\n\n***************INFIJA A POSTFIJA***************\n\n");
 					cout << "Ingrese funcion: " << endl;
 					cin >> cadena;
 					num = cadena.size();
 					cverdad=postfija(cadena,num);
 					//printf("\nCADENA POSTFIJO = %s", cverdad.c_str());
 					guardar(cverdad.c_str(), nombreArchivo);
-					/*for (int i = 0; i < cverdad.size(); i++) {
-						cadena1[i] = cverdad[i]     ;
-					}*/
-					//printf("\n\n%c", cadena1[0]);
-					//Prefija(cadena, num);
 					printf("\nPulse cualquier tecla para generar codigo QR...");
 					getch();
 					generarQr(cadena1);
@@ -195,7 +193,6 @@ void menuTeclas() {
 				case 1:
 					system("cls");
 					
-					menuTeclas();
 					break;
 				case 2:
 					system("cls");
@@ -208,6 +205,99 @@ void menuTeclas() {
 					break;
 				case 4:
 					menuTeclas();
+					break;
+				case 5:
+					menu();//exit(1);
+					break;
+				}
+				break;
+			}
+		}
+	}
+}
+
+void menuTeclasPre() {
+	system("color f0");
+	string menu1[] = {
+		"1.- Insertar Expresion",
+		"2.- Ver datos (QR)    ",
+		"3.- Calcular          ",
+		"4.- Pdf               ",
+		"5.- About             ",
+		"6.- Regresar          " };
+	Pila *pila1 = NULL;
+	int cursor = 0;
+	string cad;
+	char tecla;
+	char nombreArchivo[11] = "polaca.txt";
+	PilaGenerica pila;
+	Expresion post;
+	string cadena, cverdad;
+	char cadena1[30];
+	bool desapila;
+	int n = -1, i = 0, num;
+
+	for (;;) {
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
+		cout << "                         CALCULADORA POLACA" << endl;
+		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
+		for (int i = 0; i < 6; i++) {
+			if (cursor == i) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
+				cout << menu1[i] << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
+			}
+			else {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
+				cout << menu1[i] << endl;
+			}
+		}
+		for (;;) {
+			tecla = _getch();
+			if (tecla == 80) {
+				cursor++;
+				if (cursor == 6)
+				{
+					cursor = 0;
+				}
+				break;
+			}
+			if (tecla == 72) {
+				cursor--;
+				if (cursor == -1)
+				{
+					cursor = 5;
+				}
+				break;
+			}
+			if (tecla == 13) {
+				switch (cursor) {
+				case 0:
+					system("cls");
+					printf("\n\n***************INFIJA A PREFIJA***************\n\n");
+					cout << "Ingrese funcion: " << endl;
+					cin >> cadena;
+					num = cadena.size();
+					cverdad = Prefija(cadena, num);
+					system("pause");
+					menuTeclas();
+					break;
+				case 1:
+					system("cls");
+					
+					break;
+				case 2:
+					system("cls");
+
+					menuTeclasPre();
+					break;
+				case 3:
+					system("cls");
+					menuTeclasPre();
+					break;
+				case 4:
+					menuTeclasPre();
 					break;
 				case 5:
 					menu();//exit(1);
@@ -345,7 +435,6 @@ void asignar(string ope)
 	cout << aux1;
 }
 
-
 bool valido(char expr[20]) {
 	bool sw = true;
 	for (int i = 0; (i<strlen(expr) && sw); i++) {
@@ -476,23 +565,105 @@ string postfija(string expresion, int num) {
 	string cverdad;
 	double valor, v[26];
 	//printf("\ntotal elementos %d\n", n);
-	cout << "\n\tExpresion:\t";
-	/*for (int i = 0; i <= post.n; i++)
+	cout << "\n\tExpresion Postfija:\t";
+	for (int i = 0; i <= post.n; i++)
 	{
-			printf("%s", post.expr[i].ope.c_str());
+			printf("%s ", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
-	}*/
+	}
 	
 	valor = Evalua(post, v);
-	cout << "\n Valor de la expresion =  " << valor;
+	cout << "\n\tValor de la expresion =  " << valor;
 	
 	return cverdad;
 }
 
 string Prefija(string expresion,int num) {
-	
+	PilaGenerica pila;
+	Expresion pre;
+	Elemento elemento[25];
+	string tokens[25];
+	string ch, opeCima, expresionV;
+	char dato[25] = "";
+	int cont = 0, n = -1, i = 0,h;
+	bool desapila;
 
-	return " ";
+
+	//Valido que la expresion sea valida
+	if (!valido(expresion))
+		printf("Caracter no valido en la expresion");
+
+	for (int j = 0; j < num; j++) {
+		//separo la expresion
+		tokens[j] = separarDato(expresion, dato, j);
+	}
+	for (int k = num-1; k >= 0; k--) {
+		ch = tokens[k];
+		//cout << "\ntoken = " << ch.c_str();
+		//printf("\n");
+			if (operando(ch.c_str())) {
+				n++;
+				elemento[n].ope = ch.c_str();
+				elemento[n].operador = false;
+				//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
+			}
+			else if (ch.compare("(")) {
+				desapila = true;
+				while (desapila) {
+					opeCima = " ";
+					if (!pila.pilaVacia()) {
+						opeCima = pila.cimaPila();
+					}
+					if (pila.pilaVacia() || (prdadFueraPre(ch.c_str()) >= prdadDentroPre(opeCima))) { //si la pila esta vacia o si la prioridad del caracter de fuera > prioridad que el que esta dentro
+																							   //printf("\naqui llego 4 ch = %s", ch.c_str());
+						pila.push(ch.c_str());
+						desapila = false;
+
+					}
+					else if (prdadFueraPre(ch.c_str()) < prdadDentroPre(opeCima)) {
+						elemento[++n].ope = pila.pop();
+						elemento[n].operador = true;
+						//printf("\naqui llego 5");
+					}
+				}
+			}
+
+			else { //si es (
+				opeCima = pila.pop();
+				if (opeCima.compare(")")) {
+					//printf("\n\nOPECIMA = %s", opeCima.c_str());
+					do {
+						elemento[++n].ope = opeCima;
+						elemento[n].operador = true;
+						opeCima = pila.pop();
+						//printf("\n\nOPECIMA = %s",opeCima.c_str());
+					} while (opeCima != ")");
+				}
+			}
+	}
+
+	while (!pila.pilaVacia()) {
+		elemento[++n].ope = pila.pop();
+		elemento[n].operador = true;
+	}
+	//Expresion pre;
+	pre.expr = elemento;
+	pre.n = n;
+	string cverdad;
+	double valor, v[26];
+	//printf("\ntotal elementos %d\n", n);
+	cout << "\n\tExpresion Prefija:\t";
+	for (int i = pre.n; i >= 0; i--)
+	{
+		printf("%s ", pre.expr[i].ope.c_str());
+		cverdad.append(pre.expr[i].ope.c_str());
+	}
+	postfija(expresion, num);
+	/*valor = Evalua(post, v);
+	cout << "\n Valor de la expresion =  " << valor;*/
+	/*cout << "EXPRE" << cverdad;
+	system("pause");*/
+	return cverdad;
 }
 
 double Evalua(Expresion postfija, double v[]) {
@@ -720,4 +891,31 @@ static void generarQr(char *mensaje)
 	printf("GENERADOR DE QR\n");
 	generarQrBasico(mensaje);
 	system("pause");
+}
+
+int prdadDentroPre(string operador) { //prioridad del operador en la expresion (dentro de la pila)
+	int pdp = 0;
+
+	if (operador == "^" || operador == "sen" || operador == "cos" || operador == "tan")
+		pdp = 3;
+	else if (operador == "*" || operador == "/")
+		pdp = 2;
+	else if (operador == "+" || operador == "-")
+		pdp = 1;
+	else if (operador == ")")
+		pdp = 0;
+	return pdp;
+}
+
+int prdadFueraPre(string operando) { //prioridad del operador en la expresion infija
+	int pfp = 0;
+	if (operando == "^" || operando == "sen" || operando == "cos" || operando == "tan")
+		pfp = 4;
+	else if (operando == "*" || operando == "/")
+		pfp = 2;
+	else if (operando == "+" || operando == "-")
+		pfp = 1;
+	else if (operando == ")")
+		pfp = 5;
+	return pfp;
 }
