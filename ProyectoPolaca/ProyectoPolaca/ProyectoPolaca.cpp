@@ -8,12 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <direct.h>//mkdir
+#include <time.h>
+#include <ctime>
 #include "Pila.h"
 #include "Nodo.h"
 #include "PilaGenerica.h"
 #include "PilaGenericaD.h"
 #include "qrcodegen.h"
-
 
 struct Elemento {
 	string ope;
@@ -45,10 +47,109 @@ static void printQr(const uint8_t qrcode[]);
 string Prefija(string expresion, int num);
 int prdadDentroPre(string operador);
 int prdadFueraPre(string operando);
+void crear_carpeta();
+void menuMouse();
+void leertxt();
+
 
 int main() {
-	menu();
+	//menu();
+	menuMouse();
 	return 0;
+}
+
+void menuMouse() {
+	string palabra1;
+	system("cls");
+	system("color f0");
+	cout << "\t\t\t ";
+	cout << " CALCULADORA POLACA" << endl;
+	printf(" 1. Conversion Prefijo\n");
+	printf(" 2. Conversion Posfijo\n");
+	printf(" 3. Leer Backup\n");
+	printf(" 4. Ayuda\n");
+	printf(" 5. Sobre nosotros\n");
+	printf(" 6. Salir\n");
+	HANDLE paraEntrada = GetStdHandle(STD_INPUT_HANDLE);
+	INPUT_RECORD regEntrada;
+	DWORD evento;
+	COORD coordenadas;
+	SetConsoleMode(paraEntrada, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
+	while (1) {
+		ReadConsoleInput(paraEntrada, &regEntrada, 1, &evento);
+		if (regEntrada.EventType == MOUSE_EVENT)
+		{
+			if (regEntrada.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+			{
+				coordenadas.X = regEntrada.Event.MouseEvent.dwMousePosition.X;
+				coordenadas.Y = regEntrada.Event.MouseEvent.dwMousePosition.Y;
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 1)
+				{
+					system("cls");
+					printf("\n*******************Conversion Prefijo****************\n");
+					menuTeclasPre();
+					menuMouse();
+				}
+
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 2)
+				{
+					system("cls");
+					printf("\n*******************Conversion Postfijo****************\n");
+					menuTeclas();
+					menuMouse();
+
+				}
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 3)
+				{
+					system("cls");
+					printf("3");
+					leertxt();
+					system("cls");
+					menuMouse();
+				}
+
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 4)
+				{
+					system("cls");
+					printf("4");
+					system("pause");
+					system("cls");
+					menuMouse();
+				}
+
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 5)
+				{
+					system("cls");
+					printf("5");
+					system("pause");
+					system("cls");
+					menuMouse();
+				}
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 6)
+				{
+					system("cls");
+					printf("6");
+					system("cls");
+					printf("gracias por usar el programa");
+					system("pause");
+					exit(0);
+				}
+			}
+		}
+	}
+}
+
+void leertxt()
+{
+	char cadena[20];
+	FILE *fichero;
+	fichero = fopen("respaldo.txt", "r");
+	while (!feof(fichero)) {
+		fgets(cadena, 20, fichero);
+	}
+	fclose(fichero);
+	cout << "Expresion =" << cadena;
+	system("pause");
 }
 
 void menu() {
@@ -131,14 +232,14 @@ void menuTeclas() {
 	int cursor = 0;
 	string cad;
 	char tecla;
-	char nombreArchivo[11] = "polaca.txt";
+	char nombreArchivo[15] = "respaldo.txt";
 	PilaGenerica pila;
 	Expresion post;
 	string cadena, cverdad;
 	char cadena1[30];
 	bool desapila;
 	int n = -1, i = 0,num;
-	
+	char dato[25] = "";
 	for (;;) {
 		system("cls");
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
@@ -182,21 +283,28 @@ void menuTeclas() {
 					cin >> cadena;
 					num = cadena.size();
 					cverdad=postfija(cadena,num);
-					//printf("\nCADENA POSTFIJO = %s", cverdad.c_str());
-					guardar(cverdad.c_str(), nombreArchivo);
+					guardar("EXPRESION POSTFIJA =", nombreArchivo);
+					guardar(cadena, nombreArchivo);
 					printf("\nPulse cualquier tecla para generar codigo QR...");
 					getch();
+					
+					for (i = 0; i < cverdad.size(); i++)
+						cadena1[i] = cverdad[i];
+					cadena1[i] = '\0';
 					generarQr(cadena1);
 					pila.limpiarPila();
 					menuTeclas();
 					break;
 				case 1:
 					system("cls");
-					
+					crear_carpeta();
+					printf("Respaldo guardado con exito\n");
+					system("pause");
 					break;
 				case 2:
 					system("cls");
-
+					
+					system("pause");
 					menuTeclas();
 					break;
 				case 3:
@@ -207,7 +315,7 @@ void menuTeclas() {
 					menuTeclas();
 					break;
 				case 5:
-					menu();//exit(1);
+					menuMouse();//exit(1);
 					break;
 				}
 				break;
@@ -229,7 +337,7 @@ void menuTeclasPre() {
 	int cursor = 0;
 	string cad;
 	char tecla;
-	char nombreArchivo[11] = "polaca.txt";
+	char nombreArchivo[14] = "respaldo.txt";
 	PilaGenerica pila;
 	Expresion post;
 	string cadena, cverdad;
@@ -280,6 +388,8 @@ void menuTeclasPre() {
 					cin >> cadena;
 					num = cadena.size();
 					cverdad = Prefija(cadena, num);
+					//guardar("Prefija: ", nombreArchivo);
+					guardar(cadena, nombreArchivo);
 					system("pause");
 					menuTeclas();
 					break;
@@ -300,7 +410,7 @@ void menuTeclasPre() {
 					menuTeclasPre();
 					break;
 				case 5:
-					menu();//exit(1);
+					menuMouse();//exit(1);
 					break;
 				}
 				break;
@@ -499,6 +609,7 @@ string postfija(string expresion, int num) {
 	Expresion post;
 	Elemento elemento[25];
 	string tokens[25];
+	char nombreArchivo[14] = "polaca.txt";
 	string ch, opeCima;
 	char dato[25] = "";
 	int cont = 0, n = -1, i = 0;
@@ -517,6 +628,8 @@ string postfija(string expresion, int num) {
 			n++;
 			elemento[n].ope = ch.c_str();
 			elemento[n].operador = false;
+			guardar("Expresion :", nombreArchivo);
+			guardar(elemento[n].ope.c_str(), nombreArchivo);
 			//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
 		}
 		else if (ch.compare(")")) {
@@ -535,6 +648,8 @@ string postfija(string expresion, int num) {
 				else if (prdadFuera(ch.c_str()) <= prdadDentro(opeCima)) {
 					elemento[++n].ope = pila.pop();
 					elemento[n].operador = true;
+					guardar("Pila :", nombreArchivo);
+					guardar(elemento[n].ope.c_str(), nombreArchivo);
 					//printf("\naqui llego 5");
 				}
 			}
@@ -545,11 +660,15 @@ string postfija(string expresion, int num) {
 			if (opeCima.compare("(")) {
 				//printf("\n\nOPECIMA = %s", opeCima.c_str());
 				do {
-					elemento[++n].ope = opeCima;
-					elemento[n].operador = true;
-					opeCima = pila.pop();
+					if (!pila.pilaVacia()) {
+						elemento[++n].ope = opeCima;
+						elemento[n].operador = true;
+						opeCima = pila.pop();
+						guardar("Pila :", nombreArchivo);
+						guardar(elemento[n].ope.c_str(), nombreArchivo);
+					}
 					//printf("\n\nOPECIMA = %s",opeCima.c_str());
-				} while (opeCima != "(");
+				} while (opeCima != "(" );
 			}
 		}
 
@@ -558,6 +677,8 @@ string postfija(string expresion, int num) {
 	while (!pila.pilaVacia()) {
 		elemento[++n].ope = pila.pop();
 		elemento[n].operador = true;
+		guardar("Expresion :", nombreArchivo);
+		guardar(elemento[n].ope.c_str(), nombreArchivo);
 	}
 	//Expresion post;
 	post.expr = elemento;
@@ -587,7 +708,7 @@ string Prefija(string expresion,int num) {
 	char dato[25] = "";
 	int cont = 0, n = -1, i = 0,h;
 	bool desapila;
-
+	char nombreArchivo[12] = "prefija.txt";
 
 	//Valido que la expresion sea valida
 	if (!valido(expresion))
@@ -605,6 +726,8 @@ string Prefija(string expresion,int num) {
 				n++;
 				elemento[n].ope = ch.c_str();
 				elemento[n].operador = false;
+				guardar("Expresion :", nombreArchivo);
+				guardar(elemento[n].ope.c_str(), nombreArchivo);
 				//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
 			}
 			else if (ch.compare("(")) {
@@ -623,6 +746,8 @@ string Prefija(string expresion,int num) {
 					else if (prdadFueraPre(ch.c_str()) < prdadDentroPre(opeCima)) {
 						elemento[++n].ope = pila.pop();
 						elemento[n].operador = true;
+						guardar("Pila :", nombreArchivo);
+						guardar(elemento[n].ope.c_str(), nombreArchivo);
 						//printf("\naqui llego 5");
 					}
 				}
@@ -636,6 +761,8 @@ string Prefija(string expresion,int num) {
 						elemento[++n].ope = opeCima;
 						elemento[n].operador = true;
 						opeCima = pila.pop();
+						guardar("Expresion :", nombreArchivo);
+						guardar(elemento[n].ope.c_str(), nombreArchivo);
 						//printf("\n\nOPECIMA = %s",opeCima.c_str());
 					} while (opeCima != ")");
 				}
@@ -645,6 +772,8 @@ string Prefija(string expresion,int num) {
 	while (!pila.pilaVacia()) {
 		elemento[++n].ope = pila.pop();
 		elemento[n].operador = true;
+		guardar("Expresion :", nombreArchivo);
+		guardar(elemento[n].ope.c_str(), nombreArchivo);
 	}
 	//Expresion pre;
 	pre.expr = elemento;
@@ -768,6 +897,7 @@ string separarDato(string expresion, char *dato, int &pos)
 		strcpy(dato, p1);
 		//pos++;
 		aux = dato;
+		//cout << "\nen if dato: " << dato<<"posicion ="<<pos;
 		return aux;
 	}
 	else
@@ -790,7 +920,7 @@ string separarDato(string expresion, char *dato, int &pos)
 		//if (strcmp(dato, "tan") == 0) strcpy(dato, "tan");
 	}
 
-	//cout << "dato: " << dato;
+	//cout << "\ndato: " << dato;
 	aux = dato;
 	return aux;
 }
@@ -813,7 +943,8 @@ bool valido(string expr) {
 }
 
 bool operando(string c) { //determina si el caracter es un operando
-	return(c >= "0" && c <= "9");
+	
+	return(c >= "0" && c <= "999");
 }
 
 int prdadDentro(string operador) { //prioridad del operador en la expresion (dentro de la pila)
@@ -854,9 +985,11 @@ void guardar(string expresion, char *archivo) {
 	}
 	else
 	{
+		expresion += "\n";
 		nombre = expresion.c_str();
 		//fputs(nombre,ptr);
-		fprintf(ptr, "Postfijo: %s  ", nombre.c_str());
+		fprintf(ptr, " %s", nombre.c_str());
+		
 		fclose(ptr);
 	}
 }
@@ -918,4 +1051,62 @@ int prdadFueraPre(string operando) { //prioridad del operador en la expresion in
 	else if (operando == ")")
 		pfp = 5;
 	return pfp;
+}
+
+void crear_carpeta()
+{
+	//genera dia mes año
+	time_t t;
+	struct tm *tm;
+	char fechayhora[100];
+
+	t = time(NULL);
+	tm = localtime(&t);
+	strftime(fechayhora, 100, "%d-%m-%Y", tm);
+
+	//genera hora minutos segundos
+	time_t current_time;
+	struct tm * time_info;
+	char timeString[9];
+
+	time(&current_time);
+	time_info = localtime(&current_time);
+
+	strftime(timeString, sizeof(timeString), "%H-%M-%S", time_info);
+	//puts(timeString);
+
+	//creacion de carpeta en directorio especifico
+	string ruta, nombre_carpeta, ruta_absoluta,rutaprueba;
+
+	//INGRESAR RUTA ABSOLUTA
+	printf("Ingrese Ruta Donde crear carpeta\n");
+	fflush(stdin);
+	//getline(cin, ruta);
+	fflush(stdin);
+	// printf("Ingrese Nombre de la carpeta\n");
+	//fflush(stdin);
+	// getline(cin,nombre_carpeta);
+	rutaprueba += "C:\\Users\\Administrador1\\Desktop\\pp1\\Carvajal_Corral_C.Polaca\\Carvajal_Corral_C.Polaca\\ProyectoPolaca\\Respaldos\\";
+	ruta_absoluta = rutaprueba + "Hora " + timeString + " Fecha " + fechayhora;
+	if (mkdir(ruta_absoluta.c_str()) == 0)//para comprobar si se cre la carpeta 0 si esta correcta
+	{
+		printf("\ncarpeta creada correctamente\n");
+	}
+	else {
+		printf("\nerror al crear carpeta\n");
+	}
+	//creacion de archivo en la carpeta creada
+	string nombre_archivo = "respaldo ", ruta_absoluta_archivo, o;
+	printf("Ingrese Nombre para el archivo de respaldo\n");
+	fflush(stdin);
+	// getline(cin,nombre_archivo);
+	ruta_absoluta_archivo = ruta_absoluta + "\\" + nombre_archivo + "-" + timeString + " - " + fechayhora + ".txt";
+	FILE *arch;
+	if (arch = fopen(ruta_absoluta_archivo.c_str(), "a"))
+	{
+		printf("\nArchivo creado ");
+	}
+	else {
+		printf("error al crear archivo");
+	}
 }

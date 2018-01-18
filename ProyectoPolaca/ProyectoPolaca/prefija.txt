@@ -1,0 +1,130 @@
+ Expresion :
+ 5
+ Expresion :
+ 4
+ Expresion :
+ 1
+ Expresion :
+ 3
+ Expresion :
+ *
+ Expresion :
+ /
+ Expresion :
+ -
+ Expresion :
+ )
+ Expresion :
+ 2
+ Expresion :
+ +
+ Expresion :
+ 5
+ Expresion :
+ (
+ Expresion :
+ /
+ Expresion :
+ 1
+ Expresion :
+ *
+ Expresion :
+ 5
+ Expresion :
+ 4
+ Expresion :
+ sen
+ Pila :
+ +
+ Expresion :
+ 
+ Expresion :
+ 
+ Expresion :
+ 4
+ Expresion :
+ 4
+ Expresion :
+ 4
+ Pila :
+ sen
+ Pila :
+ +
+ Expresion :
+ 
+ Expresion :
+ 
+ Expresion :
+ 360
+ Expresion :
+ 
+ Expresion :
+ 
+ Pila :
+ cos
+ Expresion :
+ 
+ Expresion :
+ 
+ Expresion :
+ 50
+ Expresion :
+ -
+ Expresion :
+ 
+ Pila :
+ sen
+ Expresion :
+ 
+ Expresion :
+ 
+ Expresion :
+ 50
+ Expresion :
+ -
+ Expresion :
+ 
+ Expresion :
+ 25
+ Expresion :
+ 50
+ Pila :
+ +
+ Expresion :
+ -
+ Expresion :
+ 
+ Expresion :
+ 
+ Expresion :
+ 50
+ Expresion :
+ 0
+ Expresion :
+ -
+ Expresion :
+ 
+ Expresion :
+ 8
+ Expresion :
+ 8
+ Expresion :
+ 6
+ Expresion :
+ +
+ Expresion :
+ 1
+ Expresion :
+ 6
+ Expresion :
+ *
+ Expresion :
+ 90
+ Expresion :
+ 
+ Pila :
+ sen
+ Expresion :
+ 
+ Expresion :
+ 
