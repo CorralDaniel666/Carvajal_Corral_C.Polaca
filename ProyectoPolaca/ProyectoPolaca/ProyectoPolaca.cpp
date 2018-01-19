@@ -50,6 +50,7 @@ int prdadFueraPre(string operando);
 void crear_carpeta();
 void menuMouse();
 void leertxt();
+string leertxt1();
 void guardarAg(string expresion, char *archivo);
 
 
@@ -168,6 +169,19 @@ void leertxt()
 	fclose(fichero);
 	cout << "Expresion =" << cadena;
 	system("pause");
+}
+
+string leertxt1()
+{
+	char cadena[20];
+	FILE *fichero;
+	fichero = fopen("respaldo.txt", "r");
+	while (!feof(fichero)) {
+		fgets(cadena, 20, fichero);
+	}
+	fclose(fichero);
+	cout << "Expresion =" << cadena;
+	return cadena;
 }
 
 void menuTeclas() {
@@ -1032,7 +1046,7 @@ void crear_carpeta()
 		printf("\nerror al crear carpeta\n");
 	}
 	//creacion de archivo en la carpeta creada
-	string nombre_archivo = "rsp", ruta_absoluta_archivo, o;
+	string nombre_archivo = "rsp", ruta_absoluta_archivo, o,cad;
 	printf("Ingrese Nombre para el archivo de respaldo\n");
 	fflush(stdin);
 	// getline(cin,nombre_archivo);
@@ -1041,6 +1055,8 @@ void crear_carpeta()
 	if (arch = fopen(ruta_absoluta_archivo.c_str(), "a"))
 	{
 		printf("\nArchivo creado ");
+		cad=leertxt1();
+		fprintf(arch, " %s", cad.c_str());
 	}
 	else {
 		printf("error al crear archivo");
