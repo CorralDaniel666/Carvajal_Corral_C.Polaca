@@ -1,0 +1,111 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MSAgents
+http://rainbow.arch.scriptmania.com/merlin/msagents_download.html
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Microsoft Agents
+http://www.microsoft.com/download/en/details.aspx?id=10121
+
+http://www.microsoft.com/products/msagent/main.aspx
+
+http://chemware.co.nz/AgentSupport.htm
+
+http://www.microsoft.com/download/en/details.aspx?id=10121
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Programming MSAgents with C#
+
+http://www.c-sharpcorner.com/UploadFile/chrstopherhall/UsingMicrosoftAgentwithCSharp11222005231914PM/UsingMicrosoftAgentwithCSharp.aspx
+http://www.deitel.com/articles/csharp_tutorials/20051111/MicrosoftAgent_Page1.html
+http://www.codeproject.com/Articles/4305/Announcer-in-C-NET-using-Microsoft-Agent
+http://www.codeproject.com/Articles/35921/Programming-Microsoft-Agent-in-Windows-Forms
+http://www.developerfusion.com/code/5370/using-microsoft-agent-in-c/
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Programming MSAgents with JavaScript in teh Web
+
+http://www.c-sharpcorner.com/UploadFile/ggaganesh/UsingMSAgentinCSharpPartITextToSpeech11232005003127AM/UsingMSAgentinCSharpPartITextToSpeech.aspx
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Sistema Experto Akinator
+
+http://www.ciberdroide.com/wordpress/%C2%BFcomo-funciona-un-sistema-experto/
+http://www.ciberdroide.com/wordpress/author/admin/
+http://ceciliarobles.com/2010/10/29/publicar-mi-novela-erotica-part-ii/
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Redes Bayesianas
+
+http://www.ia.uned.es/~fjdiez/docencia/razbayes/
+
+PDFs
+
+[PDF]  
+Tema 8: Introducción a las Redes Bayesianaswww.cs.us.es/cursos/ia2-2005/temas/tema-08.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Incluso podr´ian llamar aunque no hubiera sonado: por confundirla con un teléfono, por ejemplo. IA-II 2005–2006. CcIa. Introducción a las Redes Bayesianas ...
+
+[PDF]  
+Sistemas Expertos, Redes Bayesianas y sus aplicacioneswww.splitcc.net/Documents/Bayes05.pdfHaz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Redes Bayesianas. Ejemplo: congreso con 50 personas de 3 universidades (23, 18,9). 1ª:30% Ciencias, 40% de Ing, 25% Humanidades y 5% Economía.
+
+[PDF]  
+Capítulo 3 REDES BAYESIANASwww.lcc.uma.es/~eva/asignaturas/lic/apuntes/redesbayesianas.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Antes de presentar formalmente la teoría matemática de las redes bayesianas, explicaremos mediante ejemplos sencillos el significado intuitivo de los ...
+
+[PDF]  
+Redes Bayesianaswww.lcc.uma.es/~eva/aic/Redes%20Bayesianas.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Redes Bayesianas. 1 Presentación intuitiva. Antes de presentar formalmente la teoría matemática de las redes bayesianas, explicaremos mediante ejemplos ...
+
+[PDF]  
+Ejercicios de redes bayesianaswww.nebrija.es/.../ia/.../Ejercicios%20de%20redes%20bayesianas.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+1. Departamento de Computación e Inteligencia. Artificial. Prof. D. Constantino Malagón. Ejercicios de redes bayesianas. 1. Sea X una variable que representa ...
+
+[PDF]  
+Redes Bayesianas - INAOEccc.inaoep.mx/~esucar/Clases-mgp/caprb.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+de LE Sucar - Artículos relacionados
+La Figura 1.1 muestra un ejemplo hipotético de una red bayesiana (RB) que representa cierto conocimiento sobre medicina. En este caso, los nodos rep- ...
+
+[PDF]  
+Ejemplos de redes bayesianaswww.ia.uned.es/~fjdiez/docencia/videos-prob.../3.2-Ejemplos-rb.pdfHaz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Curso de Experto Universitario en. Probabilidad y Estadística en Medicina www. ia.uned.es/cursos/prob-estad. Ejemplos de redes bayesianas. Nº iglesias ...
+
+[PDF]  
+Notación de probabilidadwww.mty.itesm.mx/dtie/centros/csi/materias/ia95.../bayes-foils.pdfSimilares
+Haz hecho público que te gusta. Deshacer
+Formato de archivo: PDF/Adobe Acrobat - Vista rápida
+Una red bayesiana es una representación gráfica que representa las dependencias ... En este ejemplo, cavity es evidencia de toothache y de catch. Además ...
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Minería de Datos
+
+http://www.meteo.unican.es/es/research/mineria_datos
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Teorema de Bayes
+
+http://nutriserver.com/Cursos/Bioestadistica/Teorema_Bayes.html
+http://www.slideshare.net/luiselipehernandez/ejemplos-del-teorema-de-bayes
+
+
+
+
+
+
+
+

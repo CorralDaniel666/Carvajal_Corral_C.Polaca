@@ -1,0 +1,49 @@
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\Interop.AgentObjects.dll
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.ResolveComReference.cache
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.frmManejoAgente.resources
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.Properties.Resources.resources
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.exe
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.pdb
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\Interop.AgentObjects.dll
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.exe
+C:\Users\Cesar\Documents\Visual Studio 2010\Projects\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.pdb
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\Interop.AgentObjects.dll
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.ResolveComReference.cache
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.exe
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.pdb
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.exe
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.pdb
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\Interop.AgentObjects.dll
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csprojResolveAssemblyReference.cache
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.frmManejoAgente.resources
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.Properties.Resources.resources
+C:\Users\usuario\Desktop\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.GenerateResource.Cache
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\Interop.AgentObjects.dll
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.ResolveComReference.cache
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.exe
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.pdb
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.exe
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.pdb
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\Interop.AgentObjects.dll
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csprojResolveAssemblyReference.cache
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.frmManejoAgente.resources
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.Properties.Resources.resources
+C:\Users\usuario\Desktop\Mayo 2014\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.GenerateResource.Cache
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\Interop.AgentObjects.dll
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.ResolveComReference.cache
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.exe
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.pdb
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.exe
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\WinAppManejoMSAgente.pdb
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\bin\Debug\Interop.AgentObjects.dll
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csprojResolveAssemblyReference.cache
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.frmManejoAgente.resources
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.Properties.Resources.resources
+C:\Users\cvillacis\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.GenerateResource.Cache
+C:\Users\usuario\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\Interop.AgentObjects.dll
+C:\Users\usuario\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.csproj.ResolveComReference.cache
+C:\Users\usuario\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.exe
+C:\Users\usuario\Desktop\Enero 2016\Agentes\WinAppManejoMSAgente\WinAppManejoMSAgente\obj\x86\Debug\WinAppManejoMSAgente.pdb

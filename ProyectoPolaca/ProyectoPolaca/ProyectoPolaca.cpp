@@ -50,12 +50,30 @@ int prdadFueraPre(string operando);
 void crear_carpeta();
 void menuMouse();
 void leertxt();
+void guardarAg(string expresion, char *archivo);
 
 
 int main() {
-	//menu();
 	menuMouse();
 	return 0;
+}
+
+void guardarAg(string expresion, char *archivo) {
+	FILE *ptr;
+	string nombre;
+
+	ptr = fopen(archivo, "w"); //REALIZO LA APERTURA DEL ARCHIVO
+	if (ptr == NULL)
+	{
+		printf("ERROR.\n");
+	}
+	else
+	{
+		nombre = expresion.c_str();
+		//fputs(nombre,ptr);
+		fprintf(ptr, "%s \n", nombre.c_str());
+		fclose(ptr);
+	}
 }
 
 void menuMouse() {
@@ -152,82 +170,12 @@ void leertxt()
 	system("pause");
 }
 
-void menu() {
-	int cont = 3;
-	system("color f0");
-	system("cls");
-	string menu[] = {
-		"1.- Conversion prefijo",
-		"2.- Conversion postfijo",
-		"3.- Salir             " };
-	int cursor = 0;
-	char tecla;
-	for (;;) {
-		system("cls");
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-		cout << "                         CALCULADORA POLACA" << endl;
-		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
-		for (int i = 0; i < 3; i++) {
-			if (cursor == i) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
-				cout << menu[i] << endl;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-			}
-			else {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-				cout << menu[i] << endl;
-			}
-		}
-		for (;;) {
-			tecla = _getch();
-			if (tecla == 80) {
-				cursor++;
-				if (cursor == cont)
-				{
-					cursor = 0;
-				}
-				break;
-			}
-			if (tecla == 72) {
-				cursor--;
-				if (cursor == -1)
-				{
-					cursor = cont-1;
-				}
-				break;
-			}
-			if (tecla == 13) {
-				switch (cursor) {
-				case 0:
-					system("cls");
-					printf("\n*******************Conversion Prefijo****************\n");
-					menuTeclasPre();
-					break;
-				case 1:
-					system("cls");
-					printf("\n*******************Conversion Postfijo****************\n");
-					menuTeclas();
-					break;
-				case 2:
-					system("cls");
-					printf("\n GRACIAS POR UTILIZAR ESTE PROGRAMA...\n");
-					exit(1);
-					break;
-				}
-			}
-		}
-	}
-}
-
 void menuTeclas() {
 	system("color f0");
 	string menu1[] = {
 		"1.- Insertar Expresion",
-		"2.- Ver datos (QR)    ",
-		"3.- Calcular          ",
-		"4.- Pdf               ",
-		"5.- About             ",
-		"6.- Regresar          " };
+		"2.- About             ",
+		"3.- Regresar          " };
 	Pila *pila1 = NULL;
 	int cursor = 0;
 	string cad;
@@ -245,7 +193,7 @@ void menuTeclas() {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 		cout << "                         CALCULADORA POLACA" << endl;
 		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (cursor == i) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
 				cout << menu1[i] << endl;
@@ -260,7 +208,7 @@ void menuTeclas() {
 			tecla = _getch();
 			if (tecla == 80) {
 				cursor++;
-				if (cursor == 6)
+				if (cursor == 3)
 				{
 					cursor = 0;
 				}
@@ -270,7 +218,7 @@ void menuTeclas() {
 				cursor--;
 				if (cursor == -1)
 				{
-					cursor = 5;
+					cursor = 2;
 				}
 				break;
 			}
@@ -302,20 +250,7 @@ void menuTeclas() {
 					system("pause");
 					break;
 				case 2:
-					system("cls");
-					
-					system("pause");
-					menuTeclas();
-					break;
-				case 3:
-					system("cls");
-					menuTeclas();
-					break;
-				case 4:
-					menuTeclas();
-					break;
-				case 5:
-					menuMouse();//exit(1);
+					menuMouse();
 					break;
 				}
 				break;
@@ -328,16 +263,13 @@ void menuTeclasPre() {
 	system("color f0");
 	string menu1[] = {
 		"1.- Insertar Expresion",
-		"2.- Ver datos (QR)    ",
-		"3.- Calcular          ",
-		"4.- Pdf               ",
-		"5.- About             ",
-		"6.- Regresar          " };
+		"2.- About             ",
+		"3.- Regresar          " };
 	Pila *pila1 = NULL;
 	int cursor = 0;
 	string cad;
 	char tecla;
-	char nombreArchivo[14] = "respaldo.txt";
+	char nombreArchivo[14] = "prefija.txt";
 	PilaGenerica pila;
 	Expresion post;
 	string cadena, cverdad;
@@ -350,7 +282,7 @@ void menuTeclasPre() {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 		cout << "                         CALCULADORA POLACA" << endl;
 		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (cursor == i) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
 				cout << menu1[i] << endl;
@@ -365,7 +297,7 @@ void menuTeclasPre() {
 			tecla = _getch();
 			if (tecla == 80) {
 				cursor++;
-				if (cursor == 6)
+				if (cursor == 3)
 				{
 					cursor = 0;
 				}
@@ -375,7 +307,7 @@ void menuTeclasPre() {
 				cursor--;
 				if (cursor == -1)
 				{
-					cursor = 5;
+					cursor = 2;
 				}
 				break;
 			}
@@ -388,7 +320,6 @@ void menuTeclasPre() {
 					cin >> cadena;
 					num = cadena.size();
 					cverdad = Prefija(cadena, num);
-					//guardar("Prefija: ", nombreArchivo);
 					guardar(cadena, nombreArchivo);
 					system("pause");
 					menuTeclas();
@@ -692,7 +623,8 @@ string postfija(string expresion, int num) {
 			printf("%s ", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
 	}
-	
+	guardarAg(cverdad, nombreArchivo);
+	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
 	valor = Evalua(post, v);
 	cout << "\n\tValor de la expresion =  " << valor;
 	
@@ -708,7 +640,7 @@ string Prefija(string expresion,int num) {
 	char dato[25] = "";
 	int cont = 0, n = -1, i = 0,h;
 	bool desapila;
-	char nombreArchivo[12] = "prefija.txt";
+	char nombreArchivo[13] = "respaldo.txt";
 
 	//Valido que la expresion sea valida
 	if (!valido(expresion))
@@ -787,11 +719,15 @@ string Prefija(string expresion,int num) {
 		printf("%s ", pre.expr[i].ope.c_str());
 		cverdad.append(pre.expr[i].ope.c_str());
 	}
+	
 	postfija(expresion, num);
+	guardarAg(cverdad, nombreArchivo);
+	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
+	
 	/*valor = Evalua(post, v);
 	cout << "\n Valor de la expresion =  " << valor;*/
-	/*cout << "EXPRE" << cverdad;
-	system("pause");*/
+	//cout << "EXPRE" << cverdad;
+	
 	return cverdad;
 }
 
@@ -1096,7 +1032,7 @@ void crear_carpeta()
 		printf("\nerror al crear carpeta\n");
 	}
 	//creacion de archivo en la carpeta creada
-	string nombre_archivo = "respaldo ", ruta_absoluta_archivo, o;
+	string nombre_archivo = "rsp", ruta_absoluta_archivo, o;
 	printf("Ingrese Nombre para el archivo de respaldo\n");
 	fflush(stdin);
 	// getline(cin,nombre_archivo);
