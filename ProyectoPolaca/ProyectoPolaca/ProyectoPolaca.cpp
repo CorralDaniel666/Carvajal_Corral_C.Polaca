@@ -31,7 +31,6 @@ using namespace std;
 
 void menuTeclas();
 void menuTeclasPre();
-void menu();
 void asignar(string);
 bool valido(string);
 bool operando(string c);
@@ -51,12 +50,37 @@ void crear_carpeta();
 void menuMouse();
 void leertxt();
 string leertxt1();
+void caratula();
 void guardarAg(string expresion, char *archivo);
 
 
 int main() {
+	caratula();
 	menuMouse();
 	return 0;
+}
+
+void caratula()
+{
+	printf("|_____________________________________________________________|\n");
+	printf("||___________________________________________________________||\n");
+	printf("|||_________________________________________________________|||\n");
+	printf("|||                                                         |||\n");
+	printf("|||          Universidad de las Fuerzas Armadas             |||\n");
+	printf("|||                       E.S.P.E.                          |||\n");
+	printf("|||                                                         |||\n");
+	printf("|||                Estructuras de Datos                     |||\n");
+	printf("|||                   Ing. Edgar Solis                      |||\n");
+	printf("|||                      NRC: 2479                          |||\n");
+	printf("|||                                                         |||\n");
+	printf("|||                  Calculadora Polaca                     |||\n");
+	printf("|||                                                         |||\n");
+	printf("|||                   Desarrollado por:                     |||\n");
+	printf("|||           Abigail Carvajal y Daniel Corral              |||\n");
+	printf("|||_________________________________________________________|||\n");
+	printf("||___________________________________________________________||\n");
+	printf("|_____________________________________________________________|\n");
+	getch();
 }
 
 void guardarAg(string expresion, char *archivo) {
@@ -121,7 +145,7 @@ void menuMouse() {
 				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 3)
 				{
 					system("cls");
-					printf("3");
+					printf("\n***************Recuperado desde Backup*****************\n");
 					leertxt();
 					system("cls");
 					menuMouse();
@@ -130,7 +154,7 @@ void menuMouse() {
 				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 4)
 				{
 					system("cls");
-					printf("4");
+					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
 					system("pause");
 					system("cls");
 					menuMouse();
@@ -139,7 +163,8 @@ void menuMouse() {
 				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 5)
 				{
 					system("cls");
-					printf("5");
+					printf("\n****************SOBRE NOSOTROS******************");
+					system("imagen.jpg");
 					system("pause");
 					system("cls");
 					menuMouse();
@@ -149,7 +174,10 @@ void menuMouse() {
 					system("cls");
 					printf("6");
 					system("cls");
-					printf("gracias por usar el programa");
+					printf("****************************\n");
+					printf("Gracias por usar el programa\n");
+					printf("****************************\n");
+					system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/PDF.jar");
 					system("pause");
 					exit(0);
 				}
@@ -188,7 +216,7 @@ void menuTeclas() {
 	system("color f0");
 	string menu1[] = {
 		"1.- Insertar Expresion",
-		"2.- About             ",
+		"2.- Ayuda             ",
 		"3.- Regresar          " };
 	Pila *pila1 = NULL;
 	int cursor = 0;
@@ -247,20 +275,21 @@ void menuTeclas() {
 					cverdad=postfija(cadena,num);
 					guardar("EXPRESION POSTFIJA =", nombreArchivo);
 					guardar(cadena, nombreArchivo);
-					printf("\nPulse cualquier tecla para generar codigo QR...");
-					getch();
+					printf("\nPulse cualquier tecla para generar codigo QR...\n\n");
 					
 					for (i = 0; i < cverdad.size(); i++)
 						cadena1[i] = cverdad[i];
 					cadena1[i] = '\0';
 					generarQr(cadena1);
 					pila.limpiarPila();
+					getch();
 					menuTeclas();
 					break;
 				case 1:
 					system("cls");
 					crear_carpeta();
-					printf("Respaldo guardado con exito\n");
+					printf("Abriendo archivo ayuda...\n");
+					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
 					system("pause");
 					break;
 				case 2:
@@ -277,7 +306,7 @@ void menuTeclasPre() {
 	system("color f0");
 	string menu1[] = {
 		"1.- Insertar Expresion",
-		"2.- About             ",
+		"2.- Ayuda             ",
 		"3.- Regresar          " };
 	Pila *pila1 = NULL;
 	int cursor = 0;
@@ -335,27 +364,18 @@ void menuTeclasPre() {
 					num = cadena.size();
 					cverdad = Prefija(cadena, num);
 					guardar(cadena, nombreArchivo);
-					system("pause");
+					getch();
 					menuTeclas();
 					break;
 				case 1:
 					system("cls");
-					
+					printf("\n**********MANUAL DE USUARIO**********");
+					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
+					system("pause");
 					break;
 				case 2:
 					system("cls");
-
-					menuTeclasPre();
-					break;
-				case 3:
-					system("cls");
-					menuTeclasPre();
-					break;
-				case 4:
-					menuTeclasPre();
-					break;
-				case 5:
-					menuMouse();//exit(1);
+					menuMouse();
 					break;
 				}
 				break;
@@ -560,8 +580,13 @@ string postfija(string expresion, int num) {
 	int cont = 0, n = -1, i = 0;
 	bool desapila;
 	//Valido que la expresion sea valida
-	if (!valido(expresion))
-		printf("Caracter no valido en la expresion");
+	if (!valido(expresion)) {
+		system("cls");
+		printf("\nCaracter no valido en la expresion\nIntente ingresando nuevamente la cadena");
+		getch();
+		menuTeclas();
+	}
+		
 
 	for (int j = 0; j < num; j++) {
 		//separo la expresion
@@ -641,7 +666,7 @@ string postfija(string expresion, int num) {
 	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
 	valor = Evalua(post, v);
 	cout << "\n\tValor de la expresion =  " << valor;
-	
+	printf("\n");
 	return cverdad;
 }
 
@@ -738,6 +763,7 @@ string Prefija(string expresion,int num) {
 	guardarAg(cverdad, nombreArchivo);
 	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
 	
+	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/Mongo.jar");
 	/*valor = Evalua(post, v);
 	cout << "\n Valor de la expresion =  " << valor;*/
 	//cout << "EXPRE" << cverdad;
