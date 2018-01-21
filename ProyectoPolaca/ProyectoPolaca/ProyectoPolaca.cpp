@@ -1,5 +1,4 @@
-// ProyectoPolaca.cpp: define el punto de entrada de la aplicación de consola.
-//
+// ProyectoPolaca.cpp: define el punto de entrada de la aplicación de consola.//
 #include "stdafx.h"
 #include <iostream>
 #include <conio.h>
@@ -29,8 +28,6 @@ struct Expresion {
 
 using namespace std;
 
-void menuTeclas();
-void menuTeclasPre();
 void asignar(string);
 bool valido(string);
 bool operando(string c);
@@ -52,6 +49,8 @@ void leertxt();
 string leertxt1();
 void caratula();
 void guardarAg(string expresion, char *archivo);
+bool valido2(string expresion[25]);
+void menuPrefija();
 
 
 int main() {
@@ -62,24 +61,24 @@ int main() {
 
 void caratula()
 {
-	printf("|_____________________________________________________________|\n");
-	printf("||___________________________________________________________||\n");
-	printf("|||_________________________________________________________|||\n");
-	printf("|||                                                         |||\n");
-	printf("|||          Universidad de las Fuerzas Armadas             |||\n");
-	printf("|||                       E.S.P.E.                          |||\n");
-	printf("|||                                                         |||\n");
-	printf("|||                Estructuras de Datos                     |||\n");
-	printf("|||                   Ing. Edgar Solis                      |||\n");
-	printf("|||                      NRC: 2479                          |||\n");
-	printf("|||                                                         |||\n");
-	printf("|||                  Calculadora Polaca                     |||\n");
-	printf("|||                                                         |||\n");
-	printf("|||                   Desarrollado por:                     |||\n");
-	printf("|||           Abigail Carvajal y Daniel Corral              |||\n");
-	printf("|||_________________________________________________________|||\n");
-	printf("||___________________________________________________________||\n");
-	printf("|_____________________________________________________________|\n");
+	printf("\t|_____________________________________________________________|\n");
+	printf("\t||___________________________________________________________||\n");
+	printf("\t|||_________________________________________________________|||\n");
+	printf("\t|||                                                         |||\n");
+	printf("\t|||          Universidad de las Fuerzas Armadas             |||\n");
+	printf("\t|||                       E.S.P.E.                          |||\n");
+	printf("\t|||                                                         |||\n");
+	printf("\t|||                Estructuras de Datos                     |||\n");
+	printf("\t|||                   Ing. Edgar Solis                      |||\n");
+	printf("\t|||                      NRC: 2479                          |||\n");
+	printf("\t|||                                                         |||\n");
+	printf("\t|||                  Calculadora Polaca                     |||\n");
+	printf("\t|||                                                         |||\n");
+	printf("\t|||                   Desarrollado por:                     |||\n");
+	printf("\t|||           Abigail Carvajal y Daniel Corral              |||\n");
+	printf("\t|||_________________________________________________________|||\n");
+	printf("\t||___________________________________________________________||\n");
+	printf("\t|_____________________________________________________________|\n");
 	getch();
 }
 
@@ -105,14 +104,13 @@ void menuMouse() {
 	string palabra1;
 	system("cls");
 	system("color f0");
-	cout << "\t\t\t ";
-	cout << " CALCULADORA POLACA" << endl;
-	printf(" 1. Conversion Prefijo\n");
-	printf(" 2. Conversion Posfijo\n");
-	printf(" 3. Leer Backup\n");
-	printf(" 4. Ayuda\n");
-	printf(" 5. Sobre nosotros\n");
-	printf(" 6. Salir\n");
+	cout << "**************************************************************\n\t\t\t ";
+	cout << " CALCULADORA POLACA\n" << endl;
+	printf(" 1. Conversion \n\n");
+	printf(" 2. Leer Backup\n\n");
+	printf(" 3. Ayuda\n\n");
+	printf(" 4. Sobre nosotros\n\n");
+	printf(" 5. Salir\n\n");
 	HANDLE paraEntrada = GetStdHandle(STD_INPUT_HANDLE);
 	INPUT_RECORD regEntrada;
 	DWORD evento;
@@ -126,23 +124,16 @@ void menuMouse() {
 			{
 				coordenadas.X = regEntrada.Event.MouseEvent.dwMousePosition.X;
 				coordenadas.Y = regEntrada.Event.MouseEvent.dwMousePosition.Y;
-				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 1)
-				{
-					system("cls");
-					printf("\n*******************Conversion Prefijo****************\n");
-					menuTeclasPre();
-					menuMouse();
-				}
-
-				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 2)
-				{
-					system("cls");
-					printf("\n*******************Conversion Postfijo****************\n");
-					menuTeclas();
-					menuMouse();
-
-				}
 				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 3)
+				{
+					system("cls");
+					printf("\n*******************Conversion ****************\n");
+					//menuTeclasPre();
+					menuPrefija();
+					menuMouse();
+				}
+
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 5)
 				{
 					system("cls");
 					printf("\n***************Recuperado desde Backup*****************\n");
@@ -151,7 +142,7 @@ void menuMouse() {
 					menuMouse();
 				}
 
-				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 4)
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 7)
 				{
 					system("cls");
 					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
@@ -160,7 +151,7 @@ void menuMouse() {
 					menuMouse();
 				}
 
-				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 5)
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 9)
 				{
 					system("cls");
 					printf("\n****************SOBRE NOSOTROS******************");
@@ -169,17 +160,84 @@ void menuMouse() {
 					system("cls");
 					menuMouse();
 				}
-				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 6)
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 11)
 				{
 					system("cls");
 					printf("6");
 					system("cls");
-					printf("****************************\n");
-					printf("Gracias por usar el programa\n");
-					printf("****************************\n");
+					printf("\n\n\t****************************\n");
+					printf("\tGracias por usar el programa\n");
+					printf("\t****************************\n");
 					system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/PDF.jar");
-					system("pause");
+					getch();
 					exit(0);
+				}
+			}
+		}
+	}
+}
+
+void menuPrefija() {
+	string palabra1;
+	string cad;
+	char tecla;
+	char nombreArchivo[14] = "prefija.txt";
+	PilaGenerica pila;
+	Expresion post;
+	string cadena, cverdad;
+	char cadena1[30];
+	bool desapila;
+	int n = -1, i = 0, num;
+	system("cls");
+	system("color f0");
+	cout << "\t\t\t ";
+	cout << "\n\t\tCONVERSION \n" << endl;
+	printf(" 1. Insertar Expresion\n\n");
+	printf(" 2. Ayuda\n\n");
+	printf(" 3. Regresar al Menu Principal\n\n");
+	HANDLE paraEntrada = GetStdHandle(STD_INPUT_HANDLE);
+	INPUT_RECORD regEntrada;
+	DWORD evento;
+	COORD coordenadas;
+	SetConsoleMode(paraEntrada, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
+	while (1) {
+		ReadConsoleInput(paraEntrada, &regEntrada, 1, &evento);
+		if (regEntrada.EventType == MOUSE_EVENT)
+		{
+			if (regEntrada.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+			{
+				coordenadas.X = regEntrada.Event.MouseEvent.dwMousePosition.X;
+				coordenadas.Y = regEntrada.Event.MouseEvent.dwMousePosition.Y;
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 3)
+				{
+					system("cls");
+					printf("\n\n*******************Conversion Prefijo****************\n");
+					cout << "Ingrese funcion: " << endl;
+					cin >> cadena;
+					num = cadena.size();
+					cverdad = Prefija(cadena, num);
+					guardar(cadena, nombreArchivo);
+					for (i = 0; i < cverdad.size(); i++)
+						cadena1[i] = cverdad[i];
+					cadena1[i] = '\0';
+					generarQr(cadena1);
+					pila.limpiarPila();
+					getch();
+					menuPrefija();
+				}
+
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 5)
+				{
+					system("cls");
+					printf("\n**********MANUAL DE USUARIO**********");
+					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
+					getch();
+					menuPrefija();
+
+				}
+				if (coordenadas.X >0 && coordenadas.X <= 50 && coordenadas.Y == 7)
+				{
+					menuMouse();
 				}
 			}
 		}
@@ -210,178 +268,6 @@ string leertxt1()
 	fclose(fichero);
 	cout << "Expresion =" << cadena;
 	return cadena;
-}
-
-void menuTeclas() {
-	system("color f0");
-	string menu1[] = {
-		"1.- Insertar Expresion",
-		"2.- Ayuda             ",
-		"3.- Regresar          " };
-	Pila *pila1 = NULL;
-	int cursor = 0;
-	string cad;
-	char tecla;
-	char nombreArchivo[15] = "respaldo.txt";
-	PilaGenerica pila;
-	Expresion post;
-	string cadena, cverdad;
-	char cadena1[30];
-	bool desapila;
-	int n = -1, i = 0,num;
-	char dato[25] = "";
-	for (;;) {
-		system("cls");
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-		cout << "                         CALCULADORA POLACA" << endl;
-		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
-		for (int i = 0; i < 3; i++) {
-			if (cursor == i) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
-				cout << menu1[i] << endl;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-			}
-			else {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-				cout << menu1[i] << endl;
-			}
-		}
-		for (;;) {
-			tecla = _getch();
-			if (tecla == 80) {
-				cursor++;
-				if (cursor == 3)
-				{
-					cursor = 0;
-				}
-				break;
-			}
-			if (tecla == 72) {
-				cursor--;
-				if (cursor == -1)
-				{
-					cursor = 2;
-				}
-				break;
-			}
-			if (tecla == 13) {
-				switch (cursor) {
-				case 0:
-					system("cls");
-					printf("\n\n***************INFIJA A POSTFIJA***************\n\n");
-					cout << "Ingrese funcion: " << endl;
-					cin >> cadena;
-					num = cadena.size();
-					cverdad=postfija(cadena,num);
-					guardar("EXPRESION POSTFIJA =", nombreArchivo);
-					guardar(cadena, nombreArchivo);
-					printf("\nPulse cualquier tecla para generar codigo QR...\n\n");
-					
-					for (i = 0; i < cverdad.size(); i++)
-						cadena1[i] = cverdad[i];
-					cadena1[i] = '\0';
-					generarQr(cadena1);
-					pila.limpiarPila();
-					getch();
-					menuTeclas();
-					break;
-				case 1:
-					system("cls");
-					crear_carpeta();
-					printf("Abriendo archivo ayuda...\n");
-					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
-					system("pause");
-					break;
-				case 2:
-					menuMouse();
-					break;
-				}
-				break;
-			}
-		}
-	}
-}
-
-void menuTeclasPre() {
-	system("color f0");
-	string menu1[] = {
-		"1.- Insertar Expresion",
-		"2.- Ayuda             ",
-		"3.- Regresar          " };
-	Pila *pila1 = NULL;
-	int cursor = 0;
-	string cad;
-	char tecla;
-	char nombreArchivo[14] = "prefija.txt";
-	PilaGenerica pila;
-	Expresion post;
-	string cadena, cverdad;
-	char cadena1[30];
-	bool desapila;
-	int n = -1, i = 0, num;
-
-	for (;;) {
-		system("cls");
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-		cout << "                         CALCULADORA POLACA" << endl;
-		cout << "                 Daniel Corral  -  Abigail Carvajal" << endl << endl;
-		for (int i = 0; i < 3; i++) {
-			if (cursor == i) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 160);
-				cout << menu1[i] << endl;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-			}
-			else {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
-				cout << menu1[i] << endl;
-			}
-		}
-		for (;;) {
-			tecla = _getch();
-			if (tecla == 80) {
-				cursor++;
-				if (cursor == 3)
-				{
-					cursor = 0;
-				}
-				break;
-			}
-			if (tecla == 72) {
-				cursor--;
-				if (cursor == -1)
-				{
-					cursor = 2;
-				}
-				break;
-			}
-			if (tecla == 13) {
-				switch (cursor) {
-				case 0:
-					system("cls");
-					printf("\n\n***************INFIJA A PREFIJA***************\n\n");
-					cout << "Ingrese funcion: " << endl;
-					cin >> cadena;
-					num = cadena.size();
-					cverdad = Prefija(cadena, num);
-					guardar(cadena, nombreArchivo);
-					getch();
-					menuTeclas();
-					break;
-				case 1:
-					system("cls");
-					printf("\n**********MANUAL DE USUARIO**********");
-					ShellExecute(NULL, L"open", L"C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ManualdeUsuario.chm", NULL, NULL, SW_SHOWNORMAL);
-					system("pause");
-					break;
-				case 2:
-					system("cls");
-					menuMouse();
-					break;
-				}
-				break;
-			}
-		}
-	}
 }
 
 void asignar(string ope)
@@ -578,96 +464,88 @@ string postfija(string expresion, int num) {
 	string ch, opeCima;
 	char dato[25] = "";
 	int cont = 0, n = -1, i = 0;
-	bool desapila;
-	//Valido que la expresion sea valida
-	if (!valido(expresion)) {
-		system("cls");
-		printf("\nCaracter no valido en la expresion\nIntente ingresando nuevamente la cadena");
-		getch();
-		menuTeclas();
-	}
-		
+	bool desapila,val;
 
-	for (int j = 0; j < num; j++) {
-		//separo la expresion
-		tokens[j] = separarDato(expresion, dato, j);
-		ch = tokens[j];
-		//cout << "\ntoken = " << ch.c_str();
-		//printf("\n");
-		if (operando(ch.c_str())) {
-			n++;
-			elemento[n].ope = ch.c_str();
-			elemento[n].operador = false;
-			guardar("Expresion :", nombreArchivo);
-			guardar(elemento[n].ope.c_str(), nombreArchivo);
-			//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
-		}
-		else if (ch.compare(")")) {
-			desapila = true;
-			while (desapila) {
-				opeCima = " ";
-				if (!pila.pilaVacia()) {
-					opeCima = pila.cimaPila();
-				}
-				if (pila.pilaVacia() || (prdadFuera(ch.c_str()) > prdadDentro(opeCima))) { //si la pila esta vacia o si la prioridad del caracter de fuera > prioridad que el que esta dentro
-					//printf("\naqui llego 4 ch = %s", ch.c_str());
-					pila.push(ch.c_str());
-					desapila = false;
-					
-				}
-				else if (prdadFuera(ch.c_str()) <= prdadDentro(opeCima)) {
-					elemento[++n].ope = pila.pop();
-					elemento[n].operador = true;
-					guardar("Pila :", nombreArchivo);
-					guardar(elemento[n].ope.c_str(), nombreArchivo);
-					//printf("\naqui llego 5");
-				}
+		for (int j = 0; j < num; j++) {
+			tokens[j] = separarDato(expresion, dato, j);
+			ch = tokens[j];
+			//cout << "\ntoken = " << ch.c_str();
+			//printf("\n");
+			if (operando(ch.c_str())) {
+				n++;
+				elemento[n].ope = ch.c_str();
+				elemento[n].operador = false;
+				guardar("Expresion :", nombreArchivo);
+				guardar(elemento[n].ope.c_str(), nombreArchivo);
+				//printf("\nELEMENTO = %s Operando = %d\n", elemento[n].ope.c_str(), elemento[n].operador);
 			}
-		}
-
-		else { //si es )
-			opeCima = pila.pop();
-			if (opeCima.compare("(")) {
-				//printf("\n\nOPECIMA = %s", opeCima.c_str());
-				do {
+			else if (ch.compare(")")) {
+				desapila = true;
+				while (desapila) {
+					opeCima = " ";
 					if (!pila.pilaVacia()) {
-						elemento[++n].ope = opeCima;
+						opeCima = pila.cimaPila();
+					}
+					if (pila.pilaVacia() || (prdadFuera(ch.c_str()) > prdadDentro(opeCima))) { //si la pila esta vacia o si la prioridad del caracter de fuera > prioridad que el que esta dentro
+																							   //printf("\naqui llego 4 ch = %s", ch.c_str());
+						pila.push(ch.c_str());
+						desapila = false;
+
+					}
+					else if (prdadFuera(ch.c_str()) <= prdadDentro(opeCima)) {
+						elemento[++n].ope = pila.pop();
 						elemento[n].operador = true;
-						opeCima = pila.pop();
 						guardar("Pila :", nombreArchivo);
 						guardar(elemento[n].ope.c_str(), nombreArchivo);
+						//printf("\naqui llego 5");
 					}
-					//printf("\n\nOPECIMA = %s",opeCima.c_str());
-				} while (opeCima != "(" );
+				}
 			}
+
+			else { //si es )
+				opeCima = pila.pop();
+				if (opeCima.compare("(")) {
+					//printf("\n\nOPECIMA = %s", opeCima.c_str());
+					do {
+						if (!pila.pilaVacia()) {
+							elemento[++n].ope = opeCima;
+							elemento[n].operador = true;
+							opeCima = pila.pop();
+							guardar("Pila :", nombreArchivo);
+							guardar(elemento[n].ope.c_str(), nombreArchivo);
+						}
+						//printf("\n\nOPECIMA = %s",opeCima.c_str());
+					} while (opeCima != "(");
+				}
+			}
+
 		}
 
-	}
-
-	while (!pila.pilaVacia()) {
-		elemento[++n].ope = pila.pop();
-		elemento[n].operador = true;
-		guardar("Expresion :", nombreArchivo);
-		guardar(elemento[n].ope.c_str(), nombreArchivo);
-	}
-	//Expresion post;
-	post.expr = elemento;
-	post.n = n;
-	string cverdad;
-	double valor, v[26];
-	//printf("\ntotal elementos %d\n", n);
-	cout << "\n\tExpresion Postfija:\t";
-	for (int i = 0; i <= post.n; i++)
-	{
+		while (!pila.pilaVacia()) {
+			elemento[++n].ope = pila.pop();
+			elemento[n].operador = true;
+			guardar("Expresion :", nombreArchivo);
+			guardar(elemento[n].ope.c_str(), nombreArchivo);
+		}
+		//Expresion post;
+		post.expr = elemento;
+		post.n = n;
+		string cverdad;
+		double valor, v[26];
+		//printf("\ntotal elementos %d\n", n);
+		cout << "\n\n\tExpresion Postfija:\t";
+		for (int i = 0; i <= post.n; i++)
+		{
 			printf("%s ", post.expr[i].ope.c_str());
 			cverdad.append(post.expr[i].ope.c_str());
-	}
-	guardarAg(cverdad, nombreArchivo);
-	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
-	valor = Evalua(post, v);
-	cout << "\n\tValor de la expresion =  " << valor;
-	printf("\n");
-	return cverdad;
+		}
+		guardarAg(cverdad, nombreArchivo);
+		//system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
+		valor = Evalua(post, v);
+		cout << "\n\n\tValor de la expresion =  " << valor;
+		printf("\n");
+		return cverdad;
+	
 }
 
 string Prefija(string expresion,int num) {
@@ -678,21 +556,27 @@ string Prefija(string expresion,int num) {
 	string ch, opeCima, expresionV;
 	char dato[25] = "";
 	int cont = 0, n = -1, i = 0,h;
-	bool desapila;
+	bool desapila,val;
 	char nombreArchivo[13] = "respaldo.txt";
 
 	//Valido que la expresion sea valida
-	if (!valido(expresion))
-		printf("Caracter no valido en la expresion");
-
 	for (int j = 0; j < num; j++) {
 		//separo la expresion
 		tokens[j] = separarDato(expresion, dato, j);
 	}
-	for (int k = num-1; k >= 0; k--) {
-		ch = tokens[k];
-		//cout << "\ntoken = " << ch.c_str();
-		//printf("\n");
+	val=valido2(tokens);
+	
+	if (val==false) {
+		system("cls");
+		printf("\nCaracter no valido en la expresion\nIntente ingresando nuevamente la cadena");
+		getch();
+		menuPrefija();
+	}
+	else {
+		for (int k = num - 1; k >= 0; k--) {
+			ch = tokens[k];
+			//cout << "\ntoken = " << ch.c_str();
+			//printf("\n");
 			if (operando(ch.c_str())) {
 				n++;
 				elemento[n].ope = ch.c_str();
@@ -709,7 +593,7 @@ string Prefija(string expresion,int num) {
 						opeCima = pila.cimaPila();
 					}
 					if (pila.pilaVacia() || (prdadFueraPre(ch.c_str()) >= prdadDentroPre(opeCima))) { //si la pila esta vacia o si la prioridad del caracter de fuera > prioridad que el que esta dentro
-																							   //printf("\naqui llego 4 ch = %s", ch.c_str());
+																									  //printf("\naqui llego 4 ch = %s", ch.c_str());
 						pila.push(ch.c_str());
 						desapila = false;
 
@@ -738,43 +622,45 @@ string Prefija(string expresion,int num) {
 					} while (opeCima != ")");
 				}
 			}
+		}
+
+		while (!pila.pilaVacia()) {
+			elemento[++n].ope = pila.pop();
+			elemento[n].operador = true;
+			guardar("Expresion :", nombreArchivo);
+			guardar(elemento[n].ope.c_str(), nombreArchivo);
+		}
+		//Expresion pre;
+		pre.expr = elemento;
+		pre.n = n;
+		string cverdad;
+		double valor, v[26];
+		//printf("\ntotal elementos %d\n", n);
+		cout << "\n\tExpresion Prefija:\t";
+		for (int i = pre.n; i >= 0; i--)
+		{
+			printf("%s ", pre.expr[i].ope.c_str());
+			cverdad.append(pre.expr[i].ope.c_str());
+		}
+
+		postfija(expresion, num);
+		guardarAg(cverdad, nombreArchivo);
+		system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
+		system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/Mongo.jar");
+		return cverdad;
 	}
 
-	while (!pila.pilaVacia()) {
-		elemento[++n].ope = pila.pop();
-		elemento[n].operador = true;
-		guardar("Expresion :", nombreArchivo);
-		guardar(elemento[n].ope.c_str(), nombreArchivo);
-	}
-	//Expresion pre;
-	pre.expr = elemento;
-	pre.n = n;
-	string cverdad;
-	double valor, v[26];
-	//printf("\ntotal elementos %d\n", n);
-	cout << "\n\tExpresion Prefija:\t";
-	for (int i = pre.n; i >= 0; i--)
-	{
-		printf("%s ", pre.expr[i].ope.c_str());
-		cverdad.append(pre.expr[i].ope.c_str());
-	}
 	
-	postfija(expresion, num);
-	guardarAg(cverdad, nombreArchivo);
-	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/WinAppMSAgentsManagement/WinAppMSAgentsManagement/bin/Debug/WinAppMSAgentsManagement.exe");
-	
-	system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/Mongo.jar");
-	/*valor = Evalua(post, v);
-	cout << "\n Valor de la expresion =  " << valor;*/
-	//cout << "EXPRE" << cverdad;
-	
-	return cverdad;
 }
 
 double Evalua(Expresion postfija, double v[]) {
 	PilaGenericaD pilaGen;
 	double valor, a, b;
 	int cont = 0;
+	/*if (postfija.n <= 2) {
+		string op = postfija.expr[0].ope;
+
+	}*/
 	for (int i = 0; i <= postfija.n ; i++) {
 		string op;
 		if (postfija.expr[i].operador) {
@@ -832,7 +718,7 @@ double Evalua(Expresion postfija, double v[]) {
 					else {
 						printf("\nNo se puede realizar division para cero\nIntente ingresando otra expresion!");
 						getch();
-						menuTeclas();
+						menuPrefija();
 						break;
 					}
 						
@@ -887,7 +773,7 @@ string separarDato(string expresion, char *dato, int &pos)
 			p1[0] = p;
 			p1[1] = '\0';
 			strcat(dato, p1);
-			//printf(" p es: %c \n", p);
+			//printf(" \np es: %c \n", p);
 			pos++;
 		} while (true);
 		pos--;
@@ -896,25 +782,49 @@ string separarDato(string expresion, char *dato, int &pos)
 		//if (strcmp(dato, "tan") == 0) strcpy(dato, "tan");
 	}
 
-	//cout << "\ndato: " << dato;
+	//cout << "\ndato: " << dato<< "posicion"<< pos;
 	aux = dato;
 	return aux;
 }
 
 bool valido(string expr) {
 	bool sw = true;
+	printf("expresion %s:", expr.c_str());
+	system("pause");
 	for (int i = 0; (i<expr.size() && sw); i++) {
 		string c;
 		c = expr[i];
 		sw = sw && (
-			(c >= "A" && c <= "Z") ||
-			(c >= "a" && c <= "z") ||
+			(c >= "a" ||c <= "z")||
 			(c >= "0" && c <= "9") ||
 			(c == "^") || (c == "/") || (c == "*") ||
 			(c == "+") || (c == "-") || (c == "\n") ||
 			(c == "(") || (c == ")")
 			);
 	}
+	return sw;
+}
+
+bool valido2(string expresion[25]) {
+	bool sw = true;
+	for (int i = 0; i<25; i++) {
+		if (!expresion[i].compare("sen") || !expresion[i].compare("0") || !expresion[i].compare("1") || !expresion[i].compare("2") || !expresion[i].compare("3") ||
+			!expresion[i].compare("4") || !expresion[i].compare("5") || !expresion[i].compare("6") || !expresion[i].compare("7") || !expresion[i].compare("8") ||
+			!expresion[i].compare("(") || !expresion[i].compare(")") || !expresion[i].compare("+") || !expresion[i].compare("-") || !expresion[i].compare("*") ||
+			!expresion[i].compare("/") || !expresion[i].compare("cos") || !expresion[i].compare("tan")||!expresion[i].compare("\0"))
+		{
+			sw = sw && true;
+			//printf("validar en funcion = %d", sw);
+		}
+		else if (operando(expresion[i])) {
+			sw = sw && true;
+		}
+		else {
+			sw = sw && false;
+			printf("validar en funcion = %d", sw);
+		}
+	}
+	
 	return sw;
 }
 
@@ -970,7 +880,6 @@ void guardar(string expresion, char *archivo) {
 	}
 }
 
-
 void generarQrBasico(char dato1[]) {
 	char *dato = dato1;  // User-supplied text
 	enum qrcodegen_Ecc errCorLvl = qrcodegen_Ecc_LOW;  // Error correction level
@@ -997,7 +906,7 @@ static void printQr(const uint8_t qrcode[]) {
 
 static void generarQr(char *mensaje)
 {
-	printf("GENERADOR DE QR\n");
+	printf("\n\tGENERADOR DE QR\n");
 	generarQrBasico(mensaje);
 	system("pause");
 }

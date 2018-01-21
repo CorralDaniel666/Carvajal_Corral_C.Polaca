@@ -183,14 +183,14 @@ namespace WinAppMSAgentsManagement
            // mMSAgent.Characters[mName].Speak("\\pit=" + Voice + "\\ Bievenido al Akinator", null);
             mMSAgent.Characters[mName].Speak(texto, null);
             mMSAgent.Characters[mName].Play("Blink");
-
+            mMSAgent.Characters[mName].Play("GestureLeft");
             //mMSAgent.Characters[mName].MoveTo(100, 300, mCadence);
             //mMSAgent.Characters[mName].Play("GestureLeft");
             //mMSAgent.Characters[mName].Speak("Para jugar, debes pensar en uno de estos animales, " +
             //                                    "y yo intentaré adivinarlo.", null);
             //mMSAgent.Characters[mName].Play("DoMagic1");
             //mMSAgent.Characters[mName].Play("DoMagic2");
-            Thread.Sleep(12000);
+            Thread.Sleep(15000);
             ObjForm.Close();
             
         }

@@ -27,8 +27,8 @@ namespace WinAppMSAgentsManagement
         {
             //mObjAgent = new CAgent("merlin", this, 400, 200);
             //mObjAgent = new CAgent("Genie", this, 400, 200);
-            mObjAgent = new CAgent("Peedy", this, 400, 200);
-            //mObjAgent = new CAgent("Robby", this, 400, 200);
+            //mObjAgent = new CAgent("Peedy", this, 400, 200);
+            mObjAgent = new CAgent("Robby", this, 400, 200);
             
             mObjAgent.ShowAgent(this);
             mObjAgent.IniciarBienvenida(this);
