@@ -10,8 +10,6 @@
 #include <direct.h>//mkdir
 #include <time.h>
 #include <ctime>
-#include "Pila.h"
-#include "Nodo.h"
 #include "PilaGenerica.h"
 #include "PilaGenericaD.h"
 #include "qrcodegen.h"
@@ -169,6 +167,7 @@ void menuMouse() {
 					printf("\tGracias por usar el programa\n");
 					printf("\t****************************\n");
 					system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/PDF.jar");
+					crear_carpeta();
 					getch();
 					exit(0);
 				}
@@ -220,6 +219,7 @@ void menuPrefija() {
 					for (i = 0; i < cverdad.size(); i++)
 						cadena1[i] = cverdad[i];
 					cadena1[i] = '\0';
+					system("Start C:/Users/Administrador1/Desktop/pp1/Carvajal_Corral_C.Polaca/Carvajal_Corral_C.Polaca/ProyectoPolaca/ProyectoPolaca/Mongo.jar");
 					generarQr(cadena1);
 					pila.limpiarPila();
 					getch();
@@ -259,141 +259,15 @@ void leertxt()
 
 string leertxt1()
 {
-	char cadena[20];
+	char cadena[40],aux[20];
 	FILE *fichero;
 	fichero = fopen("respaldo.txt", "r");
 	while (!feof(fichero)) {
 		fgets(cadena, 20, fichero);
 	}
 	fclose(fichero);
-	cout << "Expresion =" << cadena;
+
 	return cadena;
-}
-
-void asignar(string ope)
-{
-	string aux;
-	string aux1;
-	for (int i = 0; i < ope.length(); i++) //obtengo la longitud de la cadena ingresada
-	{
-		stringstream ss;
-		Pila *auxp = pila;
-		int ba = 0;
-		ss << ope[i];
-		ss >> aux;
-		if (aux == "*" || aux == "+" || aux == "/" || aux == "^" || aux == "-" || aux == "(") //Identifico si esa posicion es un signo de interrogacion o un número
-		{
-			if (pila == NULL)
-			{
-				poner(aux);
-			}
-			else
-			{
-				switch (aux[0])
-				{
-					ba = 0;
-				case '+':
-					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+")
-					{
-						do
-						{
-							aux1 = aux1 + pila->getDat();
-							pila = pila->getSgt();
-							if (pila != NULL)
-							{
-								if (pila->getDat() == "c")
-									ba = 1;
-							}
-						} while (pila != NULL&&ba == 0);
-					}
-					if (pila == NULL || aux == "(")
-					{
-						poner(aux);
-
-					}
-					break;
-				case '-':
-				{
-					if (pila != NULL || pila->getDat() != "(")
-					{
-						do
-						{
-							aux1 = aux1 + pila->getDat();
-							pila = pila->getSgt();
-							if (pila != NULL)
-							{
-								if (pila->getDat() == "c")
-									ba = 1;
-							}
-						} while (pila != NULL&&ba == 0);
-					}
-					if (pila == NULL || aux == "(")
-					{
-						poner(aux);
-
-					}
-					break;
-				case '*':
-					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+" || pila->getDat() != "-")
-					{
-						do
-						{
-							aux1 = aux1 + pila->getDat();
-							pila = pila->getSgt();
-							if (pila != NULL)
-							{
-								if (pila->getDat() == "c" || pila->getDat() != "+" || pila->getDat() != "-")
-									ba = 1;
-							}
-						} while (pila != NULL&&ba == 0);
-					}
-					if (pila == NULL || aux == "(" || pila->getDat() != "+" || pila->getDat() != "-")
-					{
-						poner(aux);
-
-					}
-					break;
-				case '/':
-					if (pila != NULL || pila->getDat() != "(" || pila->getDat() != "+" || pila->getDat() != "-")
-					{
-						do
-						{
-							aux1 = aux1 + pila->getDat();
-							pila = pila->getSgt();
-							if (pila != NULL)
-							{
-								if (pila->getDat() == "c" || pila->getDat() != "+" || pila->getDat() != "-")
-									ba = 1;
-							}
-						} while (pila != NULL&&ba == 0);
-					}
-					if (pila == NULL || aux == "(" || pila->getDat() != "+" || pila->getDat() != "-")
-					{
-						poner(aux);
-
-					}
-					break;
-				}
-				}
-			}
-		}
-		else
-		{
-			aux1 = aux1 + aux;
-		}
-	}
-	if (pila != NULL)
-	{
-		do
-		{
-			aux1 = aux1 + pila->getDat();
-
-			pila = pila->getSgt();
-		} while (pila != NULL);
-	}
-
-	printf("\n\t");
-	cout << aux1;
 }
 
 bool valido(char expr[20]) {
@@ -657,93 +531,112 @@ double Evalua(Expresion postfija, double v[]) {
 	PilaGenericaD pilaGen;
 	double valor, a, b;
 	int cont = 0;
-	/*if (postfija.n <= 2) {
-		string op = postfija.expr[0].ope;
-
+	/*string ep = postfija.expr[0].ope;
+	if (!ep.compare("+") || !ep.compare("-") || !ep.compare("*") || !ep.compare("/") || !ep.compare("^")) {
+		printf("\t\nNo se puede evaluar un solo signo\n\tIntente ingresando nuevamente\n");
+		getch();
+		menuPrefija();
 	}*/
-	for (int i = 0; i <= postfija.n ; i++) {
-		string op;
-		if (postfija.expr[i].operador) {
-			op = postfija.expr[i].ope;
-			/*printf("operador: %s\n", op.c_str());*/
-			if (!op.compare("sen") || !op.compare("cos") || !op.compare("tan")) {
-				if (cont != 1) {
+		/*else {
+			string aux1;
+			string aux = postfija.expr[1].ope;
+			if (!aux.compare("+") || !ep.compare("-")) {
+				aux1.append(aux);
+				aux1.append(ep);
+				return atof(aux1.c_str());
+			}
+			else
+				return atof(ep.c_str());
+		}*/
+	//else {
+	for (int i = 0; i <= postfija.n; i++) {
+			string op;
+			if (postfija.expr[i].operador) {
+				op = postfija.expr[i].ope;
+				/*printf("operador: %s\n", op.c_str());*/
+				if (!op.compare("sen") || !op.compare("cos") || !op.compare("tan") || !op.compare("sqrt")) {
+					if (cont != 1) {
+						b = pilaGen.pop();
+						a = pilaGen.pop();
+						/*printf(" \na: %f\n", a);
+						printf(" \nb:%f\n", b);*/
+						if (!op.compare("sen")) {
+							valor = sin(b);
+						}
+						else if (!op.compare("cos")) {
+							valor = cos(b);
+						}
+						else if (!op.compare("tan")) {
+							valor = tan(b);
+						}
+						else if (!op.compare("sqrt")) {
+							valor = sqrt(b);
+						}
+						pilaGen.push(a);
+						pilaGen.push(valor);
+					}
+					else {
+						a = pilaGen.pop();
+						if (!op.compare("sen")) {
+							valor = sin(a);
+						}
+						else if (!op.compare("cos")) {
+							valor = cos(a);
+						}
+						else if (!op.compare("tan")) {
+							valor = tan(a);
+						}
+						else if (!op.compare("sqrt")) {
+							valor = sqrt(a);
+						}
+						pilaGen.push(valor);
+					}
+
+
+				}
+				else if (!op.compare("+") || !op.compare("-") || !op.compare("*") || !op.compare("/") || !op.compare("^")) {
 					b = pilaGen.pop();
 					a = pilaGen.pop();
-					/*printf(" \na: %f\n", a);
-					printf(" \nb:%f\n", b);*/
-					if (!op.compare("sen")) {
-						valor = sin(b);
+					/*printf(" \nImprimen en else a: %f\n", a);
+					printf(" \nImprime en else b:%f\n", b);
+					printf("operador: %s\n", op.c_str());*/
+					if (!op.compare("^")) {
+						valor = pow(a, b);
 					}
-					else if (!op.compare("cos")) {
-						valor = cos(b);
+					else if (!op.compare("*")) {
+						valor = a*b;
 					}
-					else if (!op.compare("tan")) {
-						valor = tan(b);
-					}
-					pilaGen.push(a);
-					pilaGen.push(valor);
-				}
-				else {
-					a = pilaGen.pop();
-					if (!op.compare("sen")) {
-						valor = sin(a);
-					}
-					else if (!op.compare("cos")) {
-						valor = cos(a);
-					}
-					else if (!op.compare("tan")) {
-						valor = tan(a);
-					}
-					pilaGen.push(valor);
-				}
-				
-				
-			}
-			else if(!op.compare("+") || !op.compare("-") || !op.compare("*") || !op.compare("/") || !op.compare("^")) {
-				b = pilaGen.pop();
-				a = pilaGen.pop();
-				/*printf(" \nImprimen en else a: %f\n", a);
-				printf(" \nImprime en else b:%f\n", b);
-				printf("operador: %s\n", op.c_str());*/
-				if (!op.compare("^")) {
-					valor = pow(a, b);
-				}
-				else if (!op.compare("*")) {
-					valor = a*b;
-				}
-				else if (!op.compare("/")) {
-					if (b != 0.0)
-						valor = a / b;
-					else {
-						printf("\nNo se puede realizar division para cero\nIntente ingresando otra expresion!");
-						getch();
-						menuPrefija();
-						break;
-					}
-						
-				}
-				else if (!op.compare("+")) {
-					valor = a + b;
-				}
-				else if (!op.compare("-")) {
-					valor = a - b;
-				}
-				pilaGen.push(valor);
-			}
-			
-		}
-		else {
-			int indice;
-			double aa;
-			op = postfija.expr[i].ope;
-			aa = atof(op.c_str());
-			pilaGen.push(aa);
-			cont++;
-		}
-	}
+					else if (!op.compare("/")) {
+						if (b != 0.0)
+							valor = a / b;
+						else {
+							printf("\nNo se puede realizar division para cero\nIntente ingresando otra expresion!");
+							getch();
+							menuPrefija();
+							break;
+						}
 
-	return pilaGen.pop();
+					}
+					else if (!op.compare("+")) {
+						valor = a + b;
+					}
+					else if (!op.compare("-")) {
+						valor = a - b;
+					}
+					pilaGen.push(valor);
+				}
+
+			}
+			else {
+				int indice;
+				double aa;
+				op = postfija.expr[i].ope;
+				aa = atof(op.c_str());
+				pilaGen.push(aa);
+				cont++;
+			}
+		}
+		return pilaGen.pop();
 }
 
 string separarDato(string expresion, char *dato, int &pos)
@@ -811,7 +704,7 @@ bool valido2(string expresion[25]) {
 		if (!expresion[i].compare("sen") || !expresion[i].compare("0") || !expresion[i].compare("1") || !expresion[i].compare("2") || !expresion[i].compare("3") ||
 			!expresion[i].compare("4") || !expresion[i].compare("5") || !expresion[i].compare("6") || !expresion[i].compare("7") || !expresion[i].compare("8") ||
 			!expresion[i].compare("(") || !expresion[i].compare(")") || !expresion[i].compare("+") || !expresion[i].compare("-") || !expresion[i].compare("*") ||
-			!expresion[i].compare("/") || !expresion[i].compare("cos") || !expresion[i].compare("tan")||!expresion[i].compare("\0"))
+			!expresion[i].compare("/") || !expresion[i].compare("cos") || !expresion[i].compare("tan")||!expresion[i].compare("\0")|| !expresion[i].compare("^")|| !expresion[i].compare("sqrt"))
 		{
 			sw = sw && true;
 			//printf("validar en funcion = %d", sw);
@@ -963,33 +856,24 @@ void crear_carpeta()
 	//creacion de carpeta en directorio especifico
 	string ruta, nombre_carpeta, ruta_absoluta,rutaprueba;
 
-	//INGRESAR RUTA ABSOLUTA
-	printf("Ingrese Ruta Donde crear carpeta\n");
-	fflush(stdin);
-	//getline(cin, ruta);
-	fflush(stdin);
-	// printf("Ingrese Nombre de la carpeta\n");
-	//fflush(stdin);
-	// getline(cin,nombre_carpeta);
 	rutaprueba += "C:\\Users\\Administrador1\\Desktop\\pp1\\Carvajal_Corral_C.Polaca\\Carvajal_Corral_C.Polaca\\ProyectoPolaca\\Respaldos\\";
 	ruta_absoluta = rutaprueba + "Hora " + timeString + " Fecha " + fechayhora;
 	if (mkdir(ruta_absoluta.c_str()) == 0)//para comprobar si se cre la carpeta 0 si esta correcta
 	{
-		printf("\ncarpeta creada correctamente\n");
+		//printf("\ncarpeta creada correctamente\n");
 	}
 	else {
-		printf("\nerror al crear carpeta\n");
+		//printf("\nerror al crear carpeta\n");
 	}
 	//creacion de archivo en la carpeta creada
 	string nombre_archivo = "rsp", ruta_absoluta_archivo, o,cad;
-	printf("Ingrese Nombre para el archivo de respaldo\n");
-	fflush(stdin);
+	
 	// getline(cin,nombre_archivo);
 	ruta_absoluta_archivo = ruta_absoluta + "\\" + nombre_archivo + "-" + timeString + " - " + fechayhora + ".txt";
 	FILE *arch;
 	if (arch = fopen(ruta_absoluta_archivo.c_str(), "a"))
 	{
-		printf("\nArchivo creado ");
+		//printf("\nArchivo creado ");
 		cad=leertxt1();
 		fprintf(arch, " %s", cad.c_str());
 	}

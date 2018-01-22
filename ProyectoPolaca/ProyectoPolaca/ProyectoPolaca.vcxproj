@@ -138,10 +138,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Nodo.h" />
     <ClInclude Include="NodoGenerico.h" />
     <ClInclude Include="NodoGenericoD.h" />
-    <ClInclude Include="Pila.h" />
     <ClInclude Include="PilaGenerica.h" />
     <ClInclude Include="PilaGenericaD.h" />
     <ClInclude Include="qrcodegen.h" />
